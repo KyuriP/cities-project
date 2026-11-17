@@ -79,7 +79,7 @@ def parse_xls(data):
         except (ValueError, TypeError): continue   # suppressed (-1) or blank
     return rows
 
-flows, totals = [], []
+flows, totals, cty_out, cty_in = [], [], [], []
 for y in YEARS:
     z = zipfile.ZipFile(RAW / f"county{y}.zip"); names = z.namelist()
     outs = [n for n in names if re.fullmatch(r"(countyout\d{4}(us1)?|co\d{4}us)\.dat", n.lower())]
@@ -100,6 +100,8 @@ for y in YEARS:
     real = real.assign(year=y)[["year", "orig", "dest", "returns", "exemptions"]]
     flows.append(real)
     totals.append(dict(year=y, nola_out_total=int(tot_out)))
+    us = df[(df.ds == "97") & (df.dc == "000") & (df.oc != "000") & (df.exemptions >= 0)].drop_duplicates("orig")
+    cty_out.append(us.assign(year=y)[["year", "orig", "exemptions"]].rename(columns={"orig": "fips", "exemptions": "out_total"}))
     print(y, "flows:", len(real), "NOLA total out:", tot_out)
 F = pd.concat(flows, ignore_index=True)
 
@@ -111,11 +113,17 @@ for t in totals:
         rows = parse_dat(z.read(ins[0]).decode("latin1"))
         df = pd.DataFrame(rows, columns=["ds", "dc", "os", "oc", "returns", "exemptions"])
         t["nola_in_total"] = int(df[(df.ds + df.dc).isin(NOLA_PARISHES) & (df.os == "97") & (df.oc == "000")].exemptions.sum())
-    else:  # 2003-04: Louisiana inflow spreadsheet (destination first, then origin)
+    else:  # 2003-04: per-state inflow spreadsheets (destination first, then origin)
         n = [n for n in names if "inflow" in n.lower() and n.lower().endswith("lai.xls")][0]
         rows = parse_xls(z.read(n))
         df = pd.DataFrame(rows, columns=["ds", "dc", "os", "oc", "returns", "exemptions"])
         t["nola_in_total"] = int(df[(df.ds + df.dc).isin(NOLA_PARISHES) & (df.os == "97") & (df.oc == "000")].exemptions.sum())
+        rows = []
+        for n in names:
+            if "inflow" in n.lower() and n.lower().endswith("i.xls"): rows += parse_xls(z.read(n))
+        df = pd.DataFrame(rows, columns=["ds", "dc", "os", "oc", "returns", "exemptions"])
+    us = df[(df.os == "97") & (df.oc == "000") & (df.dc != "000") & (df.exemptions >= 0)].assign(fips=lambda x: x.ds + x.dc).drop_duplicates("fips")
+    cty_in.append(us.assign(year=y)[["year", "fips", "exemptions"]].rename(columns={"exemptions": "in_total"}))
 
 # ---------------------------------------------------------------- write
 DATA.mkdir(exist_ok=True)
@@ -124,6 +132,8 @@ def write(df, name, index=False):
     with open(DATA / name, "w") as f: f.write(hdr); df.to_csv(f, sep="|", index=index)
 write(cty, "counties.psv"); write(met.reset_index(), "metros.psv"); write(xw, "county_metro.psv")
 write(pd.DataFrame(totals), "irs_nola_totals.psv")
+CT = pd.concat(cty_out).merge(pd.concat(cty_in), on=["year", "fips"], how="outer")
+write(CT.sort_values(["fips", "year"]), "irs_county_totals.psv")   # all destinations incl. suppressed (US total records)
 with gzip.open(DATA / "irs_county_flows.psv.gz", "wt") as f: f.write(hdr); F.to_csv(f, sep="|", index=False)
 
 # ---------------------------------------------------------------- verification against hand-extracted files

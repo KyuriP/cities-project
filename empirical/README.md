@@ -24,6 +24,17 @@ and is the only version that reproduces where returnees came from and when.
 | — | host-host coupling `S_med` | IRS onward flows (none detected) | 0 |
 | — | network | observed 2003-05 IRS flows; gravity fill: alpha 1.02, beta 0.90, gamma 1.12 (38,220 metro pairs) | — |
 
+## Ten-disaster panel (`10_events.py`)
+The same struck-place model is calibrated on every county whose Census housing estimates record a disaster loss:
+Orleans, St Bernard, Plaquemines, Jefferson (LA), Hancock, Harrison, Jackson (MS) after Katrina; Cameron (LA) after
+Rita; Aransas (TX) after Harvey 2017; Butte (CA) after the 2018 Camp Fire. Ike (2008) and Michael (2018) were
+checked and excluded (no housing loss in the Census estimates). County IRS totals including suppressed flows are built
+by `00_build_data.py` (`data/irs_county_totals.psv`). Three fits: housing capacity only (per-event evacuation and
+settling, shared return rate), plus a per-event tolerated occupancy phi*, and fully pooled rates; leave-one-event-out
+prediction; relation of rates to shock size and to pre-disaster vacancy and tenure (Census 2000/2010 profiles).
+Main results (`output/events.json`): phi* ranges 0.80-1.25 and explains most cross-event differences (AIC 209 vs 2277);
+rates from other events predict a held-out event with a median error of 6.4 percentage points of population.
+
 ## Results in brief
 
 - **Validation (not fitted):** destinations of evacuees R² 0.70; origins of returnees R² 0.55; host net domestic

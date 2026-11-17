@@ -11,7 +11,8 @@ python3 04_validate.py          # out-of-sample validation
 python3 05_uncertainty.py       # jackknife and Monte Carlo propagation
 python3 07_simulations.py       # severity across all metros, sweeps
 python3 08_campfire.py          # second disaster (Camp Fire 2018), no refitting
-python3 05_figures.py           # fig_calibration, fig_simulations, fig_campfire
+python3 10_events.py            # ten-disaster panel: per-county calibration, tolerated occupancy, transfer tests
+python3 05_figures.py           # fig_calibration, fig_simulations, fig_campfire, fig_events, fig_panel
 python3 09_map.py               # fig_map (Fig. 1): evacuee destinations and returnee origins
-python3 06_sensitivity.py       # 13 analyst-choice variants (writes to output/sensitivity/)
+python3 06_sensitivity.py       # 11 analyst-choice variants + gravity network (writes to output/sensitivity/)
 python3 -m pytest -q tests      # model correctness tests

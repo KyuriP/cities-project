@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+import matplotlib.patheffects
 from common import OUT, LANDFALL, NOLA, nola_series
 from model import capacity_struck
 
@@ -115,3 +116,62 @@ ax[1].set_xlabel("pre-disaster flow share"); ax[1].set_ylabel("share of excess o
 fig.tight_layout(w_pad=2.0); fs.letters(ax, dx=-0.2)
 fig.savefig(OUT / "fig_campfire.png"); fig.savefig(OUT / "fig_campfire.pdf")
 print("figures written")
+
+# ---------------- Fig. 6: ten disasters, small multiples
+EVR = json.load(open(OUT / "events.json")); ET = np.load(OUT / "events_traj.npz")
+evs = sorted(EVR["events"], key=lambda e: -e["shock"])
+fig, ax = plt.subplots(2, 5, figsize=(fs.W, 3.3)); ax = ax.ravel()
+for a, e in zip(ax, evs):
+    tr = ET[e["name"]]; t0 = tr[0][0]
+    yrs = np.array(e["years"]) + 0.5 - t0
+    a.plot(tr[0] - t0, tr[3], color=fs.ALT, lw=0.6, ls=":")
+    a.plot(tr[0] - t0, tr[2], color=fs.ALT, lw=0.8, ls="--")
+    a.plot(tr[0] - t0, tr[1], color=fs.MOD, lw=1.0)
+    a.plot(yrs, e["hu_obs"], "s", mfc="white", mec=fs.ALT, mew=0.6, ms=2.6)
+    a.plot(yrs, e["pop_obs"], "o", color=fs.OBS, ms=2.6)
+    lo = min(min(e["pop_obs"]), min(e["hu_obs"]), tr[1].min(), tr[3][1:].min())
+    a.set_ylim(max(0, lo - 0.08), 1.05 + (0.15 if e["B"]["phis"] > 1.1 else 0)); a.set_xlim(0, 4.6); a.set_xticks([0, 2, 4])
+    a.set_title(f"{e['name']} ({e['hazard']})", fontsize=6.5, loc="left", pad=2)
+    a.text(0.97, 0.06, rf"$\phi^*$ = {e['B']['phis']:.2f}", transform=a.transAxes, ha="right", fontsize=6)
+    a.tick_params(labelsize=6)
+for a in ax[5:]: a.set_xlabel("years after the disaster", fontsize=6.5)
+for a in (ax[0], ax[5]): a.set_ylabel("relative to pre-disaster trend", fontsize=6.5)
+fig.tight_layout(w_pad=0.8, h_pad=1.0)
+fig.savefig(OUT / "fig_events.png"); fig.savefig(OUT / "fig_events.pdf")
+
+# ---------------- Fig. 7: what differs between disasters
+fig, ax = plt.subplots(1, 3, figsize=(fs.W, 2.3))
+d = pd.DataFrame([dict(name=e["name"], shock=e["shock"], phis=e["B"]["phis"], lo=e["B"]["phis_ci"][0], hi=e["B"]["phis_ci"][1],
+                       S=e["B"]["S_s"], Slo=e["B"]["S_s_ci"][0], Shi=e["B"]["S_s_ci"][1], rA=e["A"]["rmse"], rB=e["B"]["rmse"],
+                       rK=e["rmse_katrina_metro_rates"]) for e in EVR["events"]])
+ax[0].axhline(1, color="0.7", lw=0.5, zorder=0)
+ax[0].errorbar(d.shock, d.phis, yerr=[d.phis - d.lo.clip(lower=0.6), d.hi.clip(upper=1.5) - d.phis], fmt="o", color=fs.OBS, ms=3, lw=0.6, capsize=0)
+off = {"Hancock": (4, 2), "Harrison": (4, -1), "Butte": (-4, 4), "Jackson": (-4, 4), "Jefferson": (4, 6), "Orleans": (4, 7), "St Bernard": (-4, -3),
+       "Plaquemines": (4, -6), "Cameron": (-4, -6), "Aransas": (4, 0)}
+for _, r in d.iterrows():
+    dx, dy = off.get(r["name"], (4, 0))
+    ax[0].annotate(r["name"], (r.shock, r.phis), xytext=(dx, dy), textcoords="offset points", fontsize=5.5, ha="left" if dx > 0 else ("right" if dx < 0 else "center"), va="center",
+                   path_effects=[mpl.patheffects.withStroke(linewidth=1.8, foreground="white")])
+ax[0].set_xscale("log"); ax[0].set_xlim(0.025, 1.2); ax[0].set_ylim(0.6, 1.5)
+ax[0].xaxis.set_major_formatter(mpl.ticker.FuncFormatter(lambda v, _: f"{v:g}"))
+ax[0].set_xlabel("housing lost (first year)"); ax[0].set_ylabel(r"tolerated occupancy $\phi^*$")
+idn = EVR["relations"]["S_identified"]["events"]; di = d[d.name.isin(idn)]
+ax[1].errorbar(di.shock, di.S, yerr=[di.S - di.Slo, di.Shi - di.S], fmt="o", color=fs.OBS, ms=3, lw=0.6, capsize=0)
+xx = np.linspace(0.05, 0.9, 50); b = np.polyfit(np.log(di.shock), np.log(di.S), 1)
+ax[1].plot(xx, np.exp(np.polyval(b, np.log(xx))), color=fs.ALT, lw=0.8, ls="--", zorder=0)
+for _, r in di.iterrows():
+    ax[1].annotate(r["name"], (r.shock, r.S), xytext=(4, 2), textcoords="offset points", fontsize=5.5)
+ax[1].set_xscale("log"); ax[1].set_yscale("log"); ax[1].set_xlim(0.04, 1.3); ax[1].set_ylim(0.35, 6)
+ax[1].yaxis.set_major_locator(mpl.ticker.FixedLocator([0.5, 1, 2, 4]))
+for axis in (ax[1].xaxis, ax[1].yaxis):
+    axis.set_major_formatter(mpl.ticker.FuncFormatter(lambda v, _: f"{v:g}")); axis.set_minor_formatter(mpl.ticker.NullFormatter())
+ax[1].set_xlabel("housing lost (first year)"); ax[1].set_ylabel(r"evacuation rate $S_s$ (yr$^{-1}$)")
+o = d.sort_values("shock", ascending=False); y = np.arange(len(o))
+ax[2].plot(100 * o.rK, y, "x", color=fs.ALT, ms=3.5, mew=0.8, label="Katrina metro rates")
+ax[2].plot(100 * o.rA, y, "o", mfc="white", mec=fs.OBS, mew=0.6, ms=3, label=r"own rates, $\phi^*=1$")
+ax[2].plot(100 * o.rB, y, "o", color=fs.OBS, ms=3, label=r"own rates, $\phi^*$ fitted")
+ax[2].set_yticks(y, o.name); ax[2].invert_yaxis(); ax[2].tick_params(axis="y", length=0); ax[2].spines["left"].set_visible(False)
+ax[2].set_xlabel("population error (RMSE, % of trend)"); ax[2].legend(loc="center right", bbox_to_anchor=(1.02, 0.27), fontsize=5.5, handletextpad=0.3)
+fig.tight_layout(w_pad=1.6); fs.letters(ax[:2], "ab", dx=-0.2); fs.letters([ax[2]], "c", dx=-0.32)
+fig.savefig(OUT / "fig_panel.png"); fig.savefig(OUT / "fig_panel.pdf")
+print("event figures written")
