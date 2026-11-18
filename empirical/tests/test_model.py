@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 
 HERE = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(HERE)); sys.path.insert(0, str(HERE.parent / "src"))
+sys.path.insert(0, str(HERE)); sys.path.insert(0, str(HERE.parent / "prototype" / "src"))
 from model import Network, simulate, unpack, capacity_struck   # noqa: E402
 
 NET = Network()

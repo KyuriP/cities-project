@@ -1,13 +1,13 @@
 # Model audit (17 Nov 2026)
 
-Two pieces of code were checked: the original model (`src/katrina_atlanta_metapop.py`, `network/network_metapop.py`; the
+Two pieces of code were checked: the original model (`prototype/src/katrina_atlanta_metapop.py`, `prototype/network/network_metapop.py`; the
 code behind the CSSS report's 52-metro results is not in the repository and could not be checked) and the calibrated model
 in `empirical/model.py`. Reproduce with:
 
 ```bash
 cd empirical
 python3 tests/audit_original.py       # original model
-python3 -m pytest -q tests            # calibrated model (9 tests)
+python3 -m pytest -q tests            # calibrated model (13 tests)
 ```
 
 ## Original model

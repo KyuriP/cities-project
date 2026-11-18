@@ -1,8 +1,8 @@
-"""Audit of the original model code (src/katrina_atlanta_metapop.py, network/network_metapop.py)."""
+"""Audit of the original model code (prototype/src/katrina_atlanta_metapop.py, prototype/network/network_metapop.py)."""
 import sys, importlib, numpy as np
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "network")); sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(ROOT / "prototype" / "network")); sys.path.insert(0, str(ROOT / "prototype" / "src"))
 import matplotlib; matplotlib.use("Agg")
 nm = importlib.import_module("network_metapop")
 src = importlib.import_module("katrina_atlanta_metapop")
