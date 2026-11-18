@@ -77,4 +77,14 @@ for m in ("outside_primary", "outside_sfha", "above3m"):
     print(f"{m:16s} n={len(sub):2d}  r={pr[0]:+.2f} (p={pr[1]:.2f})  rho={sr[0]:+.2f} (p={sr[1]:.2f})")
 for r in sorted(rows, key=lambda r: r["outside_primary"]):
     print(f"{r['name']:22s} {r.get('disaster', ''):18s} outside={r['outside_primary']:.2f} above3m={r['above3m'] if r['above3m'] is None else round(r['above3m'], 2)}  phi*={r['phis']:.3f}")
+# sensitivity: phi* from survey-measured capacity for the Katrina counties the ACS covers (23_capacity_check.py)
+cc = OUT / "capacity_check.json"
+if cc.exists():
+    CC = json.load(open(cc))["capacity_check"]; res["tests_acs_capacity"] = {}
+    for m in ("outside_primary", "above3m"):
+        sub = [r for r in rows if r.get(m) is not None]
+        y = np.array([CC[r["name"]]["acs"]["phis"] if (r["panel"] == "census" and r["name"] in CC) else r["phis"] for r in sub]); x = np.array([r[m] for r in sub])
+        sr, pr = spearmanr(x, y), pearsonr(x, y)
+        res["tests_acs_capacity"][m] = dict(n=len(sub), spearman=float(sr[0]), p_spearman=float(sr[1]), pearson=float(pr[0]), p_pearson=float(pr[1]))
+        print(f"ACS-capacity variant {m:16s} rho={sr[0]:+.2f} (p={sr[1]:.3f})  r={pr[0]:+.2f} (p={pr[1]:.2f})")
 json.dump(res, open(OUT / "hazard_geography.json", "w"), indent=1)

@@ -60,6 +60,8 @@ rates from other events predict a held-out event with a median error of 6.4 perc
 - `22_pulse.py`: Household Pulse Survey displacement questions; Florida after Ian and Hawaii after Lahaina, compared
   with ACS-measured housing loss (ratios 6.4 and 2.1). Week 55 is rejected by the Census server and omitted.
 
+- `14_holdout.py` with `HOLDOUT_ACSCAP=1 HOLDOUT_TAG=_acscap`: survey capacity for Orleans, Jefferson, Harrison, Jackson, Butte;
+  pooled median error unchanged (3.0 pp vs 6.1 for capacity tracking). The hazard ranking largely disappears (17_hazard_geography.py).
 - `23_capacity_check.py`: profile-likelihood intervals for phi* (all narrower than +-0.02) and a refit of Orleans,
   Jefferson, Harrison, Jackson and Butte with ACS-measured capacity: phi* rises in all five, strongly in Orleans
   (0.97 -> 1.27) and Jefferson (1.01 -> 1.13).

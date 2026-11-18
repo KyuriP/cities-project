@@ -37,7 +37,7 @@ def boot(rows, B=10000):
 res = {"main": boot(json.load(open(OUT / "holdout.json"))["rows"])}
 big = [r for r in json.load(open(OUT / "holdout.json"))["rows"] if r["loss"] >= 0.10]
 res["loss_ge_10pct"] = boot(big)
-for tag in ("_tau005", "_tau02", "_loss3", "_loss5"):
+for tag in ("_tau005", "_tau02", "_loss3", "_loss5", "_acscap"):
     f = OUT / f"holdout{tag}.json"
     if f.exists():
         d = json.load(open(f)); res[tag[1:]] = dict(summary=d["summary"], n_events=d["n_events"], mu=d["all"]["H"]["mu"],
