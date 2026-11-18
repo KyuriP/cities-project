@@ -11,7 +11,25 @@ python3 04_validate.py          # out-of-sample validation
 python3 05_uncertainty.py       # jackknife and Monte Carlo propagation
 python3 07_simulations.py       # severity across all metros, sweeps
 python3 08_campfire.py          # second disaster (Camp Fire 2018), no refitting
-python3 05_figures.py           # fig_calibration, fig_simulations, fig_campfire
-python3 09_map.py               # fig_map (Fig. 1): evacuee destinations and returnee origins
-python3 06_sensitivity.py       # 13 analyst-choice variants (writes to output/sensitivity/)
+python3 10_events.py            # ten-disaster panel: per-county calibration, tolerated occupancy, transfer tests
+python3 05_figures.py           # fig_calibration, fig_simulations, fig_campfire, fig_events, fig_panel
+python3 09_map.py               # fig_map (Fig. 2): evacuee destinations and returnee origins
+python3 11_schematic.py         # fig_schematic (Fig. 1): model illustration from calibrated rates
+python3 12_acs.py               # ACS 1-year county housing and household size (needs a Census API key)
+python3 13_acs_panel.py         # 36 county-events with ACS-measured capacity
+python3 14_holdout.py           # leave-one-disaster-out prediction on the combined panel (~40 min)
+python3 15_holdout_fig.py       # fig_holdout (Fig. 6)
+python3 16_damage_geography.py  # FEMA registrations per ZIP vs tolerated occupancy
+python3 17_hazard_geography.py  # pre-disaster hazard geography vs phi* (browser output in data/)
+python3 18_holdout_geo.py       # held-out prediction with phi* from hazard geography
+python3 19_hazard_fig.py        # fig_hazard (Fig. 7)
+for v in "HOLDOUT_TAU=0.05 HOLDOUT_TAG=_tau005" "HOLDOUT_TAU=0.2 HOLDOUT_TAG=_tau02" "HOLDOUT_MIN_LOSS=0.03 HOLDOUT_TAG=_loss3" "HOLDOUT_MIN_LOSS=0.05 HOLDOUT_TAG=_loss5"; do env $v python3 14_holdout.py; done
+python3 20_holdout_uncertainty.py  # bootstrap intervals and sensitivity summary
+python3 21_fema_mechanism.py    # FEMA registrant records vs phi*
+python3 22_pulse.py             # Household Pulse displacement vs ACS housing loss
+python3 23_capacity_check.py    # profile likelihood; ACS-capacity refit of five counties
+python3 24_baseline.py          # statistical baselines in the held-out folds
+python3 25_destinations.py      # destinations beyond Katrina (IRS county flows)
+python3 26_pred_intervals.py    # held-out prediction intervals and coverage
+python3 06_sensitivity.py       # 11 analyst-choice variants + gravity network (writes to output/sensitivity/)
 python3 -m pytest -q tests      # model correctness tests
