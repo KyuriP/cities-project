@@ -75,3 +75,17 @@ def test_connectivity_limited_regime(S_s):
     u = unpack(simulate(NET, W, delta, delta, 1.0, 1e3, r=np.full(NET.n, r), T=40.0 / S_s + 5, kappa=8.0, lam=0.5), NET.n)
     sev = u["loss"][-1] / NET.K0[NET.s]
     assert 0.5 < sev / (r * delta / S_s) < 1.5
+
+
+def test_struck_place_steady_state_and_conservation():
+    """Reduced struck-place model: no shock gives no movement; with a shock, N + D + settled = 1."""
+    import sys, pathlib
+    sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+    import numpy as np
+    from struck import simulate
+    s = simulate(lambda t: 1.0, 2.0, 5.0, 0.5, 3.0)
+    assert np.allclose(s.sol(3.0)[:2], [1.0, 0.0], atol=1e-9)
+    s = simulate(lambda t: 0.7 + 0.1 * min(t, 3.0), 2.0, 5.0, 0.5, 3.0)
+    N, D, co, ci = s.sol(3.0)
+    assert 0.7 < N < 1.0 and D > 0
+    assert abs(N + D + (co - ci - D) - 1.0) < 1e-6     # settled elsewhere = cumulative out - returns - still displaced

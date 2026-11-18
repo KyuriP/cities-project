@@ -21,8 +21,8 @@ Writes output/events.json and output/events_traj.npz."""
 import json
 import numpy as np
 import pandas as pd
-from scipy.integrate import solve_ivp
 from scipy.optimize import least_squares
+from struck import simulate, predictions
 from common import HERE, OUT, counties
 
 RAW, DATA = HERE / "raw", HERE / "data"
@@ -93,24 +93,6 @@ def capacity(ev):
         p = least_squares(f, [1 - h[0] + 0.05, 1 - h[-1], 0.5], bounds=([0, -0.2, 0.01], [0.99, 0.99, 10])).x
         return (lambda s: 1 - p[1] - (p[0] - p[1]) * np.exp(-p[2] * s)), dict(kind="exponential", d0=p[0], dinf=p[1], rho_s=p[2])
     return (lambda s: np.interp(s, np.r_[0, t], np.r_[h[0], h], right=h[-1])), dict(kind="piecewise", d0=1 - h[0], dinf=1 - h[-1], rho_s=None)
-
-
-def simulate(K, S_s, kappa, lam, T, phis=1.0):
-    def rhs(t, y):
-        N, D, co, ci = y; phi = N / K(t)
-        out = S_s * N * max(phi - phis, 0); ret = kappa * max(phis - phi, 0) * D
-        return [-out + ret, out - ret - lam * D, out, ret]
-    return solve_ivp(rhs, (0, T), [1.0, 0.0, 0.0, 0.0], method="LSODA", dense_output=True, rtol=1e-8, atol=1e-10, max_step=0.02)
-
-
-def predictions(ev, K, S_s, kappa, lam, phis=1.0):
-    T = max(ev["t_obs"][-1], ev["fy_end"][1]) + 0.05
-    s = simulate(K, S_s, kappa, lam, T, phis)
-    pop = s.sol(ev["t_obs"])[0]
-    co = s.sol(np.array([0.0, *ev["fy_end"]]))[2]
-    ci = s.sol(np.array([ev["fy_end"][0], ev["fy_end"][1]]))[3]
-    share = (co[1] - co[0]) / max(co[2] - co[0], 1e-12)
-    return pop, share, (ci[1] - ci[0]) * ev["P0"]
 
 
 def resid(ev, K, S_s, kappa, lam, phis=1.0):
