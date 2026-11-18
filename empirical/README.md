@@ -59,7 +59,7 @@ rates from other events predict a held-out event with a median error of 6.4 perc
   front-loaded as observed (model 43k, 38k, 16k; Census 45k, 28k, 22k).
 - **Failures:** Houston's share of evacuees (28%) and returnees (41%) is underestimated by half or more; IRS return timing
   is still too slow (ratio 0.72 vs 1.87); host crowding persists longer than modelled.
-- **Robustness:** 13 analyst-choice variants change `S_s`, `kappa`, `lam` by < 15% and validation R² by < 0.04; `rho_h`
+- **Robustness:** 11 analyst-choice variants change `S_s`, `kappa`, `lam` by < 15% and validation R² by < 0.04; `rho_h`
   is fragile (0.6-2.3). A pure gravity network performs much worse (destinations R² 0.35).
 - **Simulations:** with calibrated parameters, severity (excess-occupancy person-years per resident) is nearly
   independent of which metro is struck (0.239-0.250), scales smoothly with shock size (no threshold) and depends strongly on

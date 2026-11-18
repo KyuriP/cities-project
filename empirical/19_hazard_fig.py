@@ -46,10 +46,11 @@ for ax, m, xl in ((axs[0], "outside_primary", "housing outside flood, surge\nand
     t = R["tests"][m]
     ax.axhline(1, color="0.85", lw=0.5, zorder=0)
     ax.set_xlim(-0.04, 1.08); ax.set_ylim(0.65, 1.45); ax.set_xlabel(xl)
-    ax.text(0.02, 0.97, f"Spearman {t['spearman']:.2f} (p = {t['p_spearman']:.2f}), n = {t['n']}", transform=ax.transAxes, fontsize=5.8, va="top", color="0.3")
+    pf = f"{t['p_spearman']:.3f}" if t['p_spearman'] < 0.01 else f"{t['p_spearman']:.2f}"
+    ax.text(0.02, 0.97, f"Spearman {t['spearman']:.2f} (p = {pf}), n = {t['n']}", transform=ax.transAxes, fontsize=5.8, va="top", color="0.3")
 axs[0].set_ylabel(r"tolerated occupancy $\phi^*$")
 axs[0].plot([], [], "o", color=figstyle.MOD, ms=3.2, label="Katrina counties"); axs[0].plot([], [], "o", mfc="white", mec=figstyle.OBS, ms=2.8, label="other disasters")
-axs[0].legend(loc="lower right", fontsize=5.8)
+axs[0].legend(loc="upper right", fontsize=5.8, bbox_to_anchor=(1.0, 0.9))
 
 ax = axs[2]; rows = HG["primary"]["rows"]
 for r in rows:

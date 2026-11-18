@@ -18,7 +18,11 @@ from scipy.optimize import least_squares
 from common import OUT
 from struck import predictions
 
-SIG_POP, SIG_SHARE, TAU, MIN_LOSS = 0.005, 0.03, 0.10, 0.04
+import os
+SIG_POP, SIG_SHARE = 0.005, 0.03
+TAU = float(os.environ.get("HOLDOUT_TAU", 0.10))          # sd of the prior on phi* (sensitivity: 0.05, 0.2)
+MIN_LOSS = float(os.environ.get("HOLDOUT_MIN_LOSS", 0.04))  # ACS counties enter if first-year loss >= this
+TAG = os.environ.get("HOLDOUT_TAG", "")                     # output suffix for sensitivity runs
 ev10 = pickle.load(open(OUT / "events_inputs.pkl", "rb")); ev13 = pickle.load(open(OUT / "acs_inputs.pkl", "rb"))
 group = lambda d: d.rsplit(" ", 1)[0] if d[-4:].isdigit() else d
 EV = ev10 + [e for e in ev13 if e["loss"] >= MIN_LOSS and not (group(e["disaster"]) == "Camp Fire" and e["fips"] == "06007")]
@@ -86,4 +90,4 @@ json.dump(dict(rows=rows, summary=summ, n_events=len(EV), n_disasters=len(groups
                all=dict(H={k: (v.tolist() if hasattr(v, "tolist") else v) for k, v in H_all.items()},
                         A={k: (v.tolist() if hasattr(v, "tolist") else v) for k, v in A_all.items()},
                         events=[(e["g"], e["name"], e["src"], float(e["loss"])) for e in EV])),
-          open(OUT / "holdout.json", "w"), indent=1)
+          open(OUT / f"holdout{TAG}.json", "w"), indent=1)

@@ -1,7 +1,5 @@
 # Manuscript
 
 `main.tex` and `refs.bib` are the Overleaf source; `figures/` are copies of the figures produced by
-`empirical/run_all.sh`: `fig_schematic.pdf` → `fig1_schematic.pdf`, `fig_map.pdf` → `fig2_map.pdf`,
-`fig_data.pdf` → `fig3_data.pdf`, `fig_calibration.pdf` → `fig4_calibration.pdf`, `fig_simulations.pdf` →
-`fig5_simulations.pdf`, `fig_events.pdf` → `fig6_events.pdf`, `fig_panel.pdf` → `fig7_panel.pdf`.
+`empirical/run_all.sh`: `fig_schematic` → `fig1_schematic`, `fig_map` → `fig2_map`, `fig_calibration` → `fig3_calibration`, `fig_events` → `fig4_events`, `fig_panel` → `fig5_panel`, `fig_holdout` → `fig6_holdout`, `fig_hazard` → `fig7_hazard`; supplementary `fig_data` → `figS1_data`, `fig_simulations` → `figS2_simulations` (all PDF).
 Compile with `latexmk -pdf main.tex`.
