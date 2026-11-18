@@ -1,14 +1,16 @@
 """Shared style for the paper figures: sized for print (7.0 in = 180 mm full width), 7 pt Arial/Helvetica,
-open axes, outward ticks, black for observations, greys for model variants, one accent colour."""
+open axes, outward ticks; black observations, blue model, ochre housing/capacity, grey alternatives."""
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 W = 7.0                  # full page width (in)
-OBS = "k"                # observations
-MOD = "k"                # main model
-ALT = "0.55"             # alternative model / secondary series
-BAND = "0.88"            # uncertainty bands
-ACC = "#b2182b"          # single accent colour (used sparingly)
+OBS = "k"                # observations (black)
+MOD = "#2f69a6"          # main model (muted blue)
+CAP = "#c78526"          # housing / capacity (ochre)
+ALT = "0.55"             # alternative model variants (grey, always with a dash pattern)
+BAND = "#dbe5f1"         # uncertainty bands (pale blue)
+ACC = "#9a3d5c"          # migration flows on the map (wine)
+# palette checked for colour-blind separation (OKLab dE >= 21 between blue, ochre, wine)
 
 
 def apply():

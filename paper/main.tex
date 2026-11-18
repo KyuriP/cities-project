@@ -48,12 +48,19 @@ Metapopulation models from ecology, in which patches linked by dispersal each ha
 
 \section{Model}\label{sec:model}
 
-Each metropolitan area $i$ has a population $N_i(t)$ and a capacity $K_i(t)$, the population its housing can accommodate; $\phi_i=N_i/K_i$ is its relative occupancy. Before the disaster every city is at capacity, $N_i(0)=K_i(0)$, so there are no flows. Population changes by local growth and migration,
+Each metropolitan area $i$ has a population $N_i(t)$ and a capacity $K_i(t)$, the population its housing can accommodate; $\phi_i=N_i/K_i$ is its relative occupancy (Fig.~\ref{fig:schematic}). Before the disaster every city is at capacity, $N_i(0)=K_i(0)$, so there are no flows. Population changes by local growth and migration,
 \begin{equation}
 \frac{dN_i}{dt} = r_i N_i (1-\phi_i) + \sum_{j}\left(F_{ji}-F_{ij}\right) + R_i, \qquad F_{ij}=W_{ij}\,N_i\,(\phi_i-\phi_j)_+ ,
 \label{eq:N}
 \end{equation}
 where $r_i$ is the rate of natural increase, $W$ is a directed migration network, flows run only down the occupancy gradient, and $R_i$ is return migration (below). Migration conserves people.
+
+\begin{figure}[tbp]
+\centering
+\figfile{figures/fig1_schematic.pdf}{\textwidth}
+\caption{The model, drawn with the rates calibrated on Hurricane Katrina. (a) A disaster removes part of the struck city's housing capacity (ochre; dashed circle: before), so its population (blue) exceeds capacity. Residents leave along the migration network in proportion to the network weights and the occupancy gap, $F_{sj}=W_{sj}N_s(\phi_s-\phi_j)_+$ (solid arrows); displaced residents return at rate $\kappa(1-\phi_s)_+$ as the city rebuilds (dashed). (b) Capacity and population of the struck city over time; the shaded area, people living above capacity, is the severity measure. (c) The same shock when residents tolerate an occupancy $\phi^*$ above one (absorption) or below one (abandonment).}
+\label{fig:schematic}
+\end{figure}
 
 \paragraph{The struck city.} A disaster in city $s$ at $t=0$ removes a fraction $d_0$ of its capacity, of which a fraction $d_\infty$ is lost permanently; the rest is rebuilt at rate $\rho_s$,
 \begin{equation}
@@ -96,7 +103,7 @@ These data have limitations. IRS data cover tax filers and their dependants, so 
 \subsection{The shock in the data}
 \begin{figure}[tbp]
 \centering
-\figfile{figures/fig1_map.pdf}{\textwidth}
+\figfile{figures/fig2_map.pdf}{\textwidth}
 \caption{Where New Orleans residents went after Hurricane Katrina and where returnees came from. (a) Excess out-migration from the New Orleans metro in filing year 2005--06 (flow minus the 2003--05 mean), by destination metro. (b) Excess in-migration to New Orleans in 2006--07, by origin metro. Circle area and line width are proportional to the number of migrants (IRS exemptions; county flows aggregated to metros; suppressed flows not shown). Grey dots: the 196 metros of the model network; star: New Orleans.}
 \label{fig:map}
 \end{figure}
@@ -136,7 +143,7 @@ Housing units & & 0.727 & 0.812 & 0.857 & 0.871\\
 
 \begin{figure}[tbp]
 \centering
-\figfile{figures/fig2_data.pdf}{0.95\textwidth}
+\figfile{figures/fig3_data.pdf}{0.95\textwidth}
 \caption{Hurricane Katrina in the data. (a) Net domestic migration of New Orleans (black) and the four largest host metros (grey), years ending 30 June (Census components of change). (b) Population (dots) and housing units (squares) of the New Orleans metro relative to their 2001--05 linear trends, 1 July. (c) Cumulative share of migrants by distance from New Orleans (IRS county flows). (d) Shares of metro-bound migrants received by the ten largest destinations of the 2005--06 excess, before the storm (open) and in the storm year (filled).}
 \label{fig:data}
 \end{figure}
@@ -192,7 +199,7 @@ We compare the calibrated model with data not used to fit it (Fig.~\ref{fig:cali
 
 \begin{figure}[tbp]
 \centering
-\figfile{figures/fig3_calibration.pdf}{\textwidth}
+\figfile{figures/fig4_calibration.pdf}{\textwidth}
 \caption{Calibration and validation. (a) New Orleans metro relative to its 2001--05 trend: Census population (dots) and housing units (squares), capacity fitted to housing (dashed) and model population with its 95\% Monte Carlo band (stage A and B targets). (b) Net domestic in-migration to New Orleans relative to its 2002--05 mean: Census (dots), model with displaced residents tracked (solid, with 95\% band) and without tracking (dashed). (c) Share of the 2005--06 excess out-migration received by each host metro against the model's share of host gains; the vertical column consists of metros whose flow from New Orleans was suppressed, which share a common capped weight. (d) As (c) for the origins of 2006--07 excess in-migration. (e) Census net domestic migration in 2005--06 above the 2002--05 mean against model population gain in July 2006, 60 metros within 900~km. (f) Census persons per housing unit relative to trend against model occupancy above capacity, ten main hosts, July 2006 (filled) and 2007 (open). Panels b--f are not used in calibration. Grey lines: $y=x$.}
 \label{fig:calib}
 \end{figure}
@@ -205,7 +212,7 @@ Two conclusions follow. First, in the calibrated model the mechanism by which ne
 
 \begin{figure}[tbp]
 \centering
-\figfile{figures/fig4_simulations.pdf}{\textwidth}
+\figfile{figures/fig5_simulations.pdf}{\textwidth}
 \caption{Severity in the calibrated model, in excess-occupancy person-years per resident of the struck city. (a) Severity when each of the 196 metros is struck, against its evacuation rate, when the rate is proportional to the metro's pre-disaster out-migration intensity (circles; filled: New Orleans). Grey band: range across all metros when every metro has the calibrated New Orleans rate. (b) Severity of a New Orleans shock against the capacity lost at landfall, total (solid) and the part borne by hosts (dashed); dotted line: calibrated value. (c) As (b) against host capacity response; grey: 95\% interval of the calibrated value.}
 \label{fig:sims}
 \end{figure}
@@ -227,14 +234,14 @@ The Camp Fire illustrates the transfer problem. Applied without refitting, the K
 
 \begin{figure}[tbp]
 \centering
-\figfile{figures/fig5_events.pdf}{\textwidth}
+\figfile{figures/fig6_events.pdf}{\textwidth}
 \caption{Ten struck counties, ordered by housing lost. Census population (dots) and housing units (squares) relative to their pre-event linear trends; capacity path through the housing estimates (dotted); model with capacity alone (dashed, $\phi^*=1$) and with each county's tolerated occupancy (solid). Years from landfall (Katrina, Rita, Harvey) or the fire (Camp Fire).}
 \label{fig:events}
 \end{figure}
 
 \begin{figure}[tbp]
 \centering
-\figfile{figures/fig6_panel.pdf}{\textwidth}
+\figfile{figures/fig7_panel.pdf}{\textwidth}
 \caption{What differs between disasters. (a) Tolerated occupancy $\phi^*$ against housing lost in the first year, with 95\% intervals; values above one mean that displaced residents stayed in the county, values below one that residents left beyond the housing lost. (b) Evacuation rate against housing lost for the five events in which it is identified (95\% intervals; dashed: log--log fit). (c) Root-mean-square error of modelled population relative to trend for each county with the New Orleans metro rates (crosses), the county's own rates with $\phi^*=1$ (open) and with fitted $\phi^*$ (filled).}
 \label{fig:panel}
 \end{figure}

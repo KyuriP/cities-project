@@ -20,11 +20,11 @@ G = lambda a: a.plot([-1e9, 1e9], [-1e9, 1e9], color="0.6", lw=0.5, zorder=0)   
 fig, ax = plt.subplots(2, 3, figsize=(fs.W, 4.5)); ax = ax.ravel()
 t = U["t"]; yr = LANDFALL + t; obs_t = np.array(ns["years"]) + 0.5
 ax[0].fill_between(yr, U["pop_lo"], U["pop_hi"], color=fs.BAND, lw=0)
-ax[0].plot(yr, capacity_struck(t, 1.0, A["d0"], A["dinf"], A["rho_s"]), color=fs.ALT, lw=0.8, ls="--")
+ax[0].plot(yr, capacity_struck(t, 1.0, A["d0"], A["dinf"], A["rho_s"]), color=fs.CAP, lw=0.9, ls="--")
 ax[0].plot(yr, U["pop_med"], color=fs.MOD, lw=1.0)
-ax[0].plot(obs_t, ns["hu_rel"], "s", mfc="white", mec=fs.ALT, mew=0.7, ms=3.2)
+ax[0].plot(obs_t, ns["hu_rel"], "s", mfc="white", mec=fs.CAP, mew=0.8, ms=3.2)
 ax[0].plot(obs_t, ns["pop_rel"], "o", color=fs.OBS, ms=3.2)
-fs.label(ax[0], 2009.75, 0.885, "capacity", color="0.4"); fs.label(ax[0], 2009.75, 0.80, "population")
+fs.label(ax[0], 2009.75, 0.885, "capacity", color=fs.CAP); fs.label(ax[0], 2009.75, 0.80, "population", color=fs.MOD)
 ax[0].set_xlim(2005, 2010.9); ax[0].set_xticks(range(2005, 2011, 1)); ax[0].set_ylim(0.5, 1.05)
 ax[0].set_xlabel("year"); ax[0].set_ylabel("New Orleans metro / 2001–05 trend")
 yrs = np.arange(2007, 2010); lab = [f"{y-1}–{str(y)[2:]}" for y in yrs]
@@ -32,7 +32,7 @@ ax[1].fill_between(yrs, U["dm_lo"][1:] / 1e3, U["dm_hi"][1:] / 1e3, color=fs.BAN
 gm = np.array(V["gradient/empirical"]["nola_dm_model"][1:]) / 1e3; tm = np.array(V["tracked/empirical"]["nola_dm_model"][1:]) / 1e3
 ob = np.array(V["tracked/empirical"]["nola_dm_obs"][1:]) / 1e3
 ax[1].plot(yrs, gm, color=fs.ALT, lw=0.8, ls="--"); ax[1].plot(yrs, tm, color=fs.MOD, lw=1.0); ax[1].plot(yrs, ob, "o", color=fs.OBS, ms=3.2)
-fs.label(ax[1], 2009.08, gm[-1], "no tracking", color="0.4"); fs.label(ax[1], 2009.08, tm[-1] - 2, "tracked")
+fs.label(ax[1], 2009.08, gm[-1], "no tracking", color="0.4"); fs.label(ax[1], 2009.08, tm[-1] - 2, "tracked", color=fs.MOD)
 ax[1].set_xticks(yrs, lab); ax[1].set_xlim(2006.8, 2009.75); ax[1].set_ylim(0, 60)
 ax[1].set_xlabel("year (July–June)"); ax[1].set_ylabel("net in-migration to New Orleans (thousands)")
 def loglog(a, o, m, xl, yl):
@@ -78,15 +78,15 @@ for axis, ticks in [(ax[0].xaxis, [0.3, 1, 3]), (ax[0].yaxis, [0.2, 0.3, 0.4])]:
 ax[0].set_ylabel("severity (person-years per resident)")
 dd = S["sweeps_nola"]["delta"]
 ax[1].plot([x["d0"] for x in dd], [x["total"] for x in dd], color=fs.MOD)
-ax[1].plot([x["d0"] for x in dd], [x["hosts"] for x in dd], color=fs.ALT, ls="--", lw=0.8)
+ax[1].plot([x["d0"] for x in dd], [x["hosts"] for x in dd], color=fs.CAP, ls="--", lw=0.9)
 ax[1].axvline(A["d0"], color="0.7", lw=0.5, ls=":", zorder=0)
-fs.label(ax[1], 0.68, dd[-1]["total"], "total", ha="left"); fs.label(ax[1], 0.68, dd[-1]["hosts"], "hosts", color="0.4", ha="left")
+fs.label(ax[1], 0.68, dd[-1]["total"], "total", ha="left", color=fs.MOD); fs.label(ax[1], 0.68, dd[-1]["hosts"], "hosts", color=fs.CAP, ha="left")
 ax[1].set_xlim(0, 0.82); ax[1].set_ylim(0, None); ax[1].set_xlabel(r"capacity lost at landfall $d_0$"); ax[1].set_ylabel("severity (person-years per resident)")
 rr = S["sweeps_nola"]["rho_h"]
 ax[2].axvspan(*C["C"]["ci95"], color=fs.BAND, lw=0)
 ax[2].plot([x["rho_h"] for x in rr], [x["total"] for x in rr], color=fs.MOD)
-ax[2].plot([x["rho_h"] for x in rr], [x["hosts"] for x in rr], color=fs.ALT, ls="--", lw=0.8)
-fs.label(ax[2], 0.06, rr[0]["total"] + 0.06, "total", ha="left"); fs.label(ax[2], 0.055, rr[0]["hosts"] - 0.3, "hosts", color="0.4", ha="left")
+ax[2].plot([x["rho_h"] for x in rr], [x["hosts"] for x in rr], color=fs.CAP, ls="--", lw=0.9)
+fs.label(ax[2], 0.06, rr[0]["total"] + 0.06, "total", ha="left", color=fs.MOD); fs.label(ax[2], 0.055, rr[0]["hosts"] - 0.3, "hosts", color=fs.CAP, ha="left")
 ax[2].set_xscale("log"); ax[2].set_ylim(0, None); ax[2].set_xlabel(r"host capacity response $\rho_h$ (yr$^{-1}$)"); ax[2].set_ylabel("severity (person-years per resident)")
 ax[2].xaxis.set_major_formatter(mpl.ticker.FuncFormatter(lambda v, _: f"{v:g}"))
 fig.tight_layout(w_pad=2.0); fs.letters(ax, dx=-0.2)
@@ -95,11 +95,11 @@ fig.savefig(OUT / "fig_simulations.png"); fig.savefig(OUT / "fig_simulations.pdf
 # ---------------- Fig. 5: Camp Fire
 CF = json.load(open(OUT / "campfire.json")); ct = np.load(OUT / "campfire_traj.npz")
 fig, ax = plt.subplots(1, 2, figsize=(fs.W * 0.72, 2.3))
-ax[0].plot(ct["t"], ct["K"], color=fs.ALT, lw=0.8, ls="--"); ax[0].plot(ct["t"], ct["N"], color=fs.MOD)
+ax[0].plot(ct["t"], ct["K"], color=fs.CAP, lw=0.9, ls="--"); ax[0].plot(ct["t"], ct["N"], color=fs.MOD)
 po = CF["population_rel_trend"]["observed"]
-ax[0].plot([2018.5, 2019.5, 2020.5], [CF["housing_rel_trend"][k] for k in ("2018", "2019", "2020")], "s", mfc="white", mec=fs.ALT, mew=0.7, ms=3.2)
+ax[0].plot([2018.5, 2019.5, 2020.5], [CF["housing_rel_trend"][k] for k in ("2018", "2019", "2020")], "s", mfc="white", mec=fs.CAP, mew=0.8, ms=3.2)
 ax[0].plot([2019.5, 2020.5], [po["2019"], po["2020"]], "o", color=fs.OBS, ms=3.2)
-fs.label(ax[0], 2020.95, ct["N"][-1], "model", ha="left"); fs.label(ax[0], 2020.95, ct["K"][-1] - 0.008, "capacity", color="0.4", ha="left")
+fs.label(ax[0], 2020.95, ct["N"][-1], "model", ha="left", color=fs.MOD); fs.label(ax[0], 2020.95, ct["K"][-1] - 0.008, "capacity", color=fs.CAP, ha="left")
 fs.label(ax[0], 2020.6, po["2020"], "Census", ha="left")
 ax[0].set_xlim(2018.25, 2021.6); ax[0].set_xticks([2019, 2020, 2021]); ax[0].set_ylim(0.8, 1.02); ax[0].set_yticks(np.arange(0.8, 1.01, 0.05))
 ax[0].yaxis.set_major_formatter(mpl.ticker.FormatStrFormatter("%.2f"))
@@ -124,10 +124,10 @@ fig, ax = plt.subplots(2, 5, figsize=(fs.W, 3.3)); ax = ax.ravel()
 for a, e in zip(ax, evs):
     tr = ET[e["name"]]; t0 = tr[0][0]
     yrs = np.array(e["years"]) + 0.5 - t0
-    a.plot(tr[0] - t0, tr[3], color=fs.ALT, lw=0.6, ls=":")
+    a.plot(tr[0] - t0, tr[3], color=fs.CAP, lw=0.8, ls=":")
     a.plot(tr[0] - t0, tr[2], color=fs.ALT, lw=0.8, ls="--")
     a.plot(tr[0] - t0, tr[1], color=fs.MOD, lw=1.0)
-    a.plot(yrs, e["hu_obs"], "s", mfc="white", mec=fs.ALT, mew=0.6, ms=2.6)
+    a.plot(yrs, e["hu_obs"], "s", mfc="white", mec=fs.CAP, mew=0.7, ms=2.6)
     a.plot(yrs, e["pop_obs"], "o", color=fs.OBS, ms=2.6)
     lo = min(min(e["pop_obs"]), min(e["hu_obs"]), tr[1].min(), tr[3][1:].min())
     a.set_ylim(max(0, lo - 0.08), 1.05 + (0.15 if e["B"]["phis"] > 1.1 else 0)); a.set_xlim(0, 4.6); a.set_xticks([0, 2, 4])
@@ -169,7 +169,7 @@ ax[1].set_xlabel("housing lost (first year)"); ax[1].set_ylabel(r"evacuation rat
 o = d.sort_values("shock", ascending=False); y = np.arange(len(o))
 ax[2].plot(100 * o.rK, y, "x", color=fs.ALT, ms=3.5, mew=0.8, label="Katrina metro rates")
 ax[2].plot(100 * o.rA, y, "o", mfc="white", mec=fs.OBS, mew=0.6, ms=3, label=r"own rates, $\phi^*=1$")
-ax[2].plot(100 * o.rB, y, "o", color=fs.OBS, ms=3, label=r"own rates, $\phi^*$ fitted")
+ax[2].plot(100 * o.rB, y, "o", color=fs.MOD, ms=3, label=r"own rates, $\phi^*$ fitted")
 ax[2].set_yticks(y, o.name); ax[2].invert_yaxis(); ax[2].tick_params(axis="y", length=0); ax[2].spines["left"].set_visible(False)
 ax[2].set_xlabel("population error (RMSE, % of trend)"); ax[2].legend(loc="center right", bbox_to_anchor=(1.02, 0.27), fontsize=5.5, handletextpad=0.3)
 fig.tight_layout(w_pad=1.6); fs.letters(ax[:2], "ab", dx=-0.2); fs.letters([ax[2]], "c", dx=-0.32)

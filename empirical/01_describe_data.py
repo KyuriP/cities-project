@@ -68,16 +68,16 @@ ax[0].axhline(0, color="0.7", lw=0.5, zorder=0); ax[0].set_ylim(-350, 120); ax[0
 ax[0].set_xticks(range(2002, 2010, 2)); ax[0].set_xlabel("year ending 30 June"); ax[0].set_ylabel("net domestic migration (thousands)")
 # b: population and housing relative to trend
 yrs = np.array(ns["years"]) + 0.5
-ax[1].plot(np.r_[2005.5, yrs], np.r_[1, ns["hu_rel"]], color=fs.ALT, lw=0.8, marker="s", ms=2.8, mfc="white", mec=fs.ALT)
+ax[1].plot(np.r_[2005.5, yrs], np.r_[1, ns["hu_rel"]], color=fs.CAP, lw=0.8, marker="s", ms=2.8, mfc="white", mec=fs.CAP)
 ax[1].plot(np.r_[2005.5, yrs], np.r_[1, ns["pop_rel"]], color=fs.OBS, lw=1.1, marker="o", ms=2.8)
-fs.label(ax[1], 2009.6, ns["hu_rel"][-1], "housing units", color="0.35"); fs.label(ax[1], 2009.6, ns["pop_rel"][-1], "population")
+fs.label(ax[1], 2009.6, ns["hu_rel"][-1], "housing units", color=fs.CAP); fs.label(ax[1], 2009.6, ns["pop_rel"][-1], "population")
 fs.label(ax[1], 2005.74, 0.62, "landfall", color="0.4", rotation=90, va="bottom")
 ax[1].axvline(2005.66, color="0.7", lw=0.5, ls=":", zorder=0)
 ax[1].set_xlim(2005, 2010.9); ax[1].set_xticks(range(2005, 2011)); ax[1].set_ylim(0.6, 1.05)
 ax[1].set_xlabel("year (1 July)"); ax[1].set_ylabel("New Orleans metro / 2001–05 trend")
 # c: distance profile
 order = np.argsort(cc.dist.values); dist = cc.dist.values[order]
-sty = {"baseline out": dict(color=fs.ALT, ls="--", lw=0.9), "excess out 2005-06": dict(color=fs.OBS, lw=1.1), "return in 2006-07": dict(color=fs.ACC, lw=1.0)}
+sty = {"baseline out": dict(color=fs.ALT, ls="--", lw=0.9), "excess out 2005-06": dict(color=fs.OBS, lw=1.1), "return in 2006-07": dict(color=fs.MOD, lw=1.0)}
 names = {"baseline out": "normal out-migration, 2003–05", "excess out 2005-06": "excess out-migration, 2005–06", "return in 2006-07": "excess in-migration, 2006–07"}
 for k, w in prof.items():
     v = w.values[order]; ax[2].plot(dist, np.cumsum(v) / v.sum(), label=names[k], **sty[k])
@@ -89,7 +89,7 @@ sb, se = h.o_base / h.o_base.sum(), h.excess / h.excess.sum()
 idx = se.sort_values(ascending=False).index[:10][::-1]; yp = np.arange(len(idx))
 for k, i in enumerate(idx): ax[3].plot([sb[i], se[i]], [k, k], color="0.8", lw=0.8, zorder=0)
 ax[3].plot(sb[idx], yp, "o", mfc="white", mec=fs.OBS, mew=0.7, ms=3.5, label="normal out-migration, 2003–05")
-ax[3].plot(se[idx], yp, "o", color=fs.OBS, ms=3.5, label="excess out-migration, 2005–06")
+ax[3].plot(se[idx], yp, "o", color=fs.MOD, ms=3.5, label="excess out-migration, 2005–06")
 ax[3].set_yticks(yp, [h.name[i].split("-")[0].split(",")[0] for i in idx]); ax[3].tick_params(axis="y", length=0)
 ax[3].spines["left"].set_visible(False); ax[3].set_xlim(0, 0.3); ax[3].set_xlabel("share of metro-bound migrants")
 ax[3].legend(loc="lower right")
