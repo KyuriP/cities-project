@@ -64,7 +64,8 @@ def fit(evs, free_phi):
     kap, lam, S, P, mu = unpack(best.x)
     loss = np.array([max(e["loss"], 0.01) for e in evs])
     b, a = np.polyfit(np.log(loss), np.log(S), 1)
-    return dict(kap=float(kap), lam=float(lam), S=S, P=P, mu=float(mu), a=float(a), b=float(b), chi2=float(2 * best.cost))
+    sdS = float(np.std(np.log(S) - (a + b * np.log(loss)), ddof=2))
+    return dict(kap=float(kap), lam=float(lam), S=S, P=P, mu=float(mu), a=float(a), b=float(b), sdS=sdS, chi2=float(2 * best.cost))
 
 
 rmse = lambda p, o: float(np.sqrt(np.mean((np.asarray(p) - o) ** 2)))
@@ -79,7 +80,8 @@ for g in groups:
         pH = predictions(e, e["K"], np.exp(H["a"] + H["b"] * l), H["kap"], H["lam"], H["mu"])[0]
         pA = predictions(e, e["K"], np.exp(A["a"] + A["b"] * l), A["kap"], A["lam"], 1.0)[0]
         pK = e["K"](e["t_obs"]); o = e["pop_rel"]
-        rows.append(dict(g=g, name=e["name"], src=e["src"], loss=float(e["loss"]), mu_train=H["mu"], t=e["t_obs"].tolist(), obs=o.tolist(),
+        rows.append(dict(g=g, name=e["name"], src=e["src"], loss=float(e["loss"]), mu_train=H["mu"],
+                         train_H=dict(kap=H["kap"], lam=H["lam"], a=H["a"], b=H["b"], sdS=H["sdS"]), t=e["t_obs"].tolist(), obs=o.tolist(),
                          H=pH.tolist(), A=pA.tolist(), Kpath=pK.tolist(),
                          rmse=dict(H=rmse(pH, o), A=rmse(pA, o), K=rmse(pK, o), none=rmse(np.ones_like(o), o))))
         print(f"{g:12s} {e['name']:20s} loss {e['loss']:.3f}  rmse H {rows[-1]['rmse']['H']:.3f} A {rows[-1]['rmse']['A']:.3f} N=K {rows[-1]['rmse']['K']:.3f} none {rows[-1]['rmse']['none']:.3f}", flush=True)

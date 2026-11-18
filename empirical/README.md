@@ -60,6 +60,14 @@ rates from other events predict a held-out event with a median error of 6.4 perc
 - `22_pulse.py`: Household Pulse Survey displacement questions; Florida after Ian and Hawaii after Lahaina, compared
   with ACS-measured housing loss (ratios 6.4 and 2.1). Week 55 is rejected by the Census server and omitted.
 
+- `23_capacity_check.py`: profile-likelihood intervals for phi* (all narrower than +-0.02) and a refit of Orleans,
+  Jefferson, Harrison, Jackson and Butte with ACS-measured capacity: phi* rises in all five, strongly in Orleans
+  (0.97 -> 1.27) and Jefferson (1.01 -> 1.13).
+- `24_baseline.py`: statistical forecasts in the held-out folds (median 5.6 / 5.2 / 4.0 pp vs 3.0 for the model).
+- `25_destinations.py`: destination shares of excess IRS out-migration for seven post-2017 struck counties
+  (pre-disaster flow shares median R^2 0.17; gravity 0.03-0.06).
+- `26_pred_intervals.py`: held-out prediction intervals (90% intervals cover 95% of county-years).
+
 ## Results in brief
 
 - **Validation (not fitted):** destinations of evacuees R² 0.70; origins of returnees R² 0.55; host net domestic

@@ -27,5 +27,9 @@ for v in "HOLDOUT_TAU=0.05 HOLDOUT_TAG=_tau005" "HOLDOUT_TAU=0.2 HOLDOUT_TAG=_ta
 python3 20_holdout_uncertainty.py  # bootstrap intervals and sensitivity summary
 python3 21_fema_mechanism.py    # FEMA registrant records vs phi*
 python3 22_pulse.py             # Household Pulse displacement vs ACS housing loss
+python3 23_capacity_check.py    # profile likelihood; ACS-capacity refit of five counties
+python3 24_baseline.py          # statistical baselines in the held-out folds
+python3 25_destinations.py      # destinations beyond Katrina (IRS county flows)
+python3 26_pred_intervals.py    # held-out prediction intervals and coverage
 python3 06_sensitivity.py       # 11 analyst-choice variants + gravity network (writes to output/sensitivity/)
 python3 -m pytest -q tests      # model correctness tests
