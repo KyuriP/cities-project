@@ -15,5 +15,10 @@ python3 10_events.py            # ten-disaster panel: per-county calibration, to
 python3 05_figures.py           # fig_calibration, fig_simulations, fig_campfire, fig_events, fig_panel
 python3 09_map.py               # fig_map (Fig. 2): evacuee destinations and returnee origins
 python3 11_schematic.py         # fig_schematic (Fig. 1): model illustration from calibrated rates
+python3 12_acs.py               # ACS 1-year county housing and household size (needs a Census API key)
+python3 13_acs_panel.py         # 36 county-events with ACS-measured capacity
+python3 14_holdout.py           # leave-one-disaster-out prediction on the combined panel (~40 min)
+python3 15_holdout_fig.py       # fig_holdout (Fig. 8)
+python3 16_damage_geography.py  # FEMA registrations per ZIP vs tolerated occupancy
 python3 06_sensitivity.py       # 11 analyst-choice variants + gravity network (writes to output/sensitivity/)
 python3 -m pytest -q tests      # model correctness tests

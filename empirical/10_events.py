@@ -248,3 +248,9 @@ res = dict(events=rows,
 json.dump(res, open(OUT / "events.json", "w"), indent=1)
 np.savez(OUT / "events_traj.npz", **traj)
 print("LOFO", [(l["name"], round(l["rmse"], 3)) for l in lofo]); print(json.dumps(rel))
+
+# event inputs for the held-out test (14_holdout.py): capacity path on a fine grid
+import pickle
+TG = np.linspace(0, 6, 601)
+pickle.dump([dict(e, disaster=e["hazard"], src="census", loss=float(e["shock"]), Kt=TG, Kv=np.array([K(s) for s in TG])) for e, K in zip(EV, KS)],
+            open(OUT / "events_inputs.pkl", "wb"))

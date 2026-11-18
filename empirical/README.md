@@ -35,6 +35,17 @@ prediction; relation of rates to shock size and to pre-disaster vacancy and tenu
 Main results (`output/events.json`): phi* ranges 0.80-1.25 and explains most cross-event differences (AIC 209 vs 2277);
 rates from other events predict a held-out event with a median error of 6.4 percentage points of population.
 
+## Larger panel and held-out prediction (`12_acs.py` ... `16_damage_geography.py`)
+- `12_acs.py`: ACS 1-year county tables 2005-2024 (needs a free Census API key in `CENSUS_API_KEY` or `~/.census_api_key`;
+  never committed). Writes `data/acs_county.psv`; usable units = housing units - other vacant - seasonal.
+- `13_acs_panel.py`: 42 county-disaster pairs fixed in advance (2008-2024), 36 with enough ACS years; capacity from
+  usable units, population from Census estimates spliced across vintages. `output/acs_panel.json`.
+- `14_holdout.py`: 21 counties (10 Census-capacity + 11 ACS counties losing >= 4%), 14 disasters. Partial pooling of
+  phi* (sd 0.1); each disaster predicted from the others. Median held-out error 3.0 pp (pooled phi*), 3.6 (phi* = 1),
+  4.9 (population = capacity), 6.3 (no change). `output/holdout.json`; figure by `15_holdout_fig.py`.
+- `16_damage_geography.py`: FEMA registrations per ZIP housing unit; does not predict phi* in the expected direction
+  (Spearman -0.44 for share of housing spared, n = 20). `output/damage_geography.json`.
+
 ## Results in brief
 
 - **Validation (not fitted):** destinations of evacuees R² 0.70; origins of returnees R² 0.55; host net domestic
