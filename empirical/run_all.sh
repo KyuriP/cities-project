@@ -20,5 +20,8 @@ python3 13_acs_panel.py         # 36 county-events with ACS-measured capacity
 python3 14_holdout.py           # leave-one-disaster-out prediction on the combined panel (~40 min)
 python3 15_holdout_fig.py       # fig_holdout (Fig. 8)
 python3 16_damage_geography.py  # FEMA registrations per ZIP vs tolerated occupancy
+python3 17_hazard_geography.py  # pre-disaster hazard geography vs phi* (browser output in data/)
+python3 18_holdout_geo.py       # held-out prediction with phi* from hazard geography
+python3 19_hazard_fig.py        # fig_hazard (Fig. 9)
 python3 06_sensitivity.py       # 11 analyst-choice variants + gravity network (writes to output/sensitivity/)
 python3 -m pytest -q tests      # model correctness tests

@@ -43,7 +43,7 @@ EVENTS = [  # (disaster, county, fips, date)
     ("Michael 2018", "Bay FL", "12005", D(2018, 10, 10)), ("Camp Fire 2018", "Butte CA", "06007", D(2018, 11, 8)),
     ("Carr fire 2018", "Shasta CA", "06089", D(2018, 7, 23)), ("Laura 2020", "Calcasieu LA", "22019", D(2020, 8, 27)),
     ("Ida 2021", "Terrebonne LA", "22109", D(2021, 8, 29)), ("Ida 2021", "Lafourche LA", "22057", D(2021, 8, 29)),
-    ("Ida 2021", "Jefferson LA", "22051", D(2021, 8, 29)), ("Ian 2022", "Lee FL", "12071", D(2022, 9, 28)),
+    ("Ida 2021", "Jefferson LA", "22051", D(2021, 8, 29)), ("Ida 2021", "Orleans LA", "22071", D(2021, 8, 29)), ("Ian 2022", "Lee FL", "12071", D(2022, 9, 28)),
     ("Ian 2022", "Charlotte FL", "12015", D(2022, 9, 28)), ("Ian 2022", "Collier FL", "12021", D(2022, 9, 28)),
     ("Lahaina fire 2023", "Maui HI", "15009", D(2023, 8, 8)), ("Helene 2024", "Buncombe NC", "37021", D(2024, 9, 26)),
 ]
