@@ -52,3 +52,8 @@ All data are public: IRS Statistics of Income county-to-county migration; Census
 Assistance data; the Census Household Pulse Survey; the FEMA flood hazard layer, NOAA storm-surge hazard maps and
 terrain tiles. Details and versions are in [`empirical/data/DATA.md`](empirical/data/DATA.md) and the manuscript's
 Methods.
+
+## Licence
+
+Code is released under the [MIT License](LICENSE). The data are public and remain subject to the terms of their
+original providers (IRS, Census Bureau, FEMA, NOAA).
