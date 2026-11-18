@@ -18,10 +18,14 @@ python3 11_schematic.py         # fig_schematic (Fig. 1): model illustration fro
 python3 12_acs.py               # ACS 1-year county housing and household size (needs a Census API key)
 python3 13_acs_panel.py         # 36 county-events with ACS-measured capacity
 python3 14_holdout.py           # leave-one-disaster-out prediction on the combined panel (~40 min)
-python3 15_holdout_fig.py       # fig_holdout (Fig. 8)
+python3 15_holdout_fig.py       # fig_holdout (Fig. 6)
 python3 16_damage_geography.py  # FEMA registrations per ZIP vs tolerated occupancy
 python3 17_hazard_geography.py  # pre-disaster hazard geography vs phi* (browser output in data/)
 python3 18_holdout_geo.py       # held-out prediction with phi* from hazard geography
-python3 19_hazard_fig.py        # fig_hazard (Fig. 9)
+python3 19_hazard_fig.py        # fig_hazard (Fig. 7)
+for v in "HOLDOUT_TAU=0.05 HOLDOUT_TAG=_tau005" "HOLDOUT_TAU=0.2 HOLDOUT_TAG=_tau02" "HOLDOUT_MIN_LOSS=0.03 HOLDOUT_TAG=_loss3" "HOLDOUT_MIN_LOSS=0.05 HOLDOUT_TAG=_loss5"; do env $v python3 14_holdout.py; done
+python3 20_holdout_uncertainty.py  # bootstrap intervals and sensitivity summary
+python3 21_fema_mechanism.py    # FEMA registrant records vs phi*
+python3 22_pulse.py             # Household Pulse displacement vs ACS housing loss
 python3 06_sensitivity.py       # 11 analyst-choice variants + gravity network (writes to output/sensitivity/)
 python3 -m pytest -q tests      # model correctness tests

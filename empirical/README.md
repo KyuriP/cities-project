@@ -50,7 +50,15 @@ rates from other events predict a held-out event with a median error of 6.4 perc
   NOAA Category 3 surge zone and NOAA levee areas, and above 3 m, for the 17 storm/flood counties of the held-out
   panel (computed in a browser; results in `data/hazard_geography.json`). Spearman 0.55 (p 0.02) and 0.68 (p 0.005)
   with phi*, strongest within Katrina. `18_holdout_geo.py`: phi* predicted from geography does not beat pooled phi*
-  for held-out disasters (median 4.1 vs 3.7 pp; elevation variant 3.9 vs 4.4). Figure by `19_hazard_fig.py`.
+  for held-out disasters (median 4.1 vs 3.7 pp; elevation variant 3.9 vs 4.4). Figure by `19_hazard_fig.py` (Fig. 7).
+
+- `20_holdout_uncertainty.py`: cluster bootstrap over held-out disasters, Wilcoxon tests, and the sensitivity runs of
+  `14_holdout.py` (`HOLDOUT_TAU` = 0.05/0.2, `HOLDOUT_MIN_LOSS` = 0.03/0.05, `HOLDOUT_TAG` sets the output suffix).
+  Pooled phi* beats capacity tracking by 1.9 pp (95% 0.4-2.5, p = 0.006); beats phi* = 1 by 0.5 pp (n.s.).
+- `21_fema_mechanism.py`: OpenFEMA registrant records (Harvey, Irma, Florence, Michael, Laura; 6 panel counties).
+  Rental location is blank in the data; share placed in FEMA hotels vs phi*: Spearman -0.94 (n = 6).
+- `22_pulse.py`: Household Pulse Survey displacement questions; Florida after Ian and Hawaii after Lahaina, compared
+  with ACS-measured housing loss (ratios 6.4 and 2.1). Week 55 is rejected by the Census server and omitted.
 
 ## Results in brief
 
