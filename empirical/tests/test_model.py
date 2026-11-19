@@ -78,14 +78,21 @@ def test_connectivity_limited_regime(S_s):
 
 
 def test_struck_place_steady_state_and_conservation():
-    """Reduced struck-place model: no shock gives no movement; with a shock, N + D + settled = 1."""
+    """Reduced struck-place model: no shock gives no movement; with a shock, nobody is created or lost:
+    residents + displaced + settled elsewhere = 1 at all times, where 'settled' is integrated independently as
+    the integral of lam * D, and the flow accounting N = 1 - cum_out + cum_in holds."""
     import sys, pathlib
     sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
     import numpy as np
+    from scipy.integrate import trapezoid
     from struck import simulate
     s = simulate(lambda t: 1.0, 2.0, 5.0, 0.5, 3.0)
     assert np.allclose(s.sol(3.0)[:2], [1.0, 0.0], atol=1e-9)
-    s = simulate(lambda t: 0.7 + 0.1 * min(t, 3.0), 2.0, 5.0, 0.5, 3.0)
-    N, D, co, ci = s.sol(3.0)
-    assert 0.7 < N < 1.0 and D > 0
-    assert abs(N + D + (co - ci - D) - 1.0) < 1e-6     # settled elsewhere = cumulative out - returns - still displaced
+    lam = 0.5
+    for phis in (0.9, 1.0, 1.2):
+        s = simulate(lambda t: 0.6 + 0.12 * min(t, 3.0), 2.0, 5.0, lam, 3.0, phis=phis)
+        t = np.linspace(0, 3.0, 30001); N, D, co, ci = s.sol(t)
+        settled = np.concatenate([[0.0], np.cumsum(0.5 * (D[1:] + D[:-1]) * np.diff(t)) * lam])
+        assert np.max(np.abs(N + D + settled - 1.0)) < 1e-5
+        assert np.max(np.abs(N - (1.0 - co + ci))) < 1e-8
+        assert D.min() > -1e-10 and N.min() > 0

@@ -29,9 +29,9 @@ building demand-driven (or tied to the disaster), making `u` relative to city si
 
 ## Calibrated model (`empirical/model.py`)
 
-All 12 tests in `empirical/tests/test_model.py` pass (run: `cd empirical; python3 -m pytest -q tests`):
+All 13 tests in `empirical/tests/test_model.py` pass (run: `cd empirical; python3 -m pytest -q tests`):
 
-- migration conserves people (both return mechanisms); no disaster gives exactly no change; populations, capacities and the
+- migration conserves people (both return mechanisms; with natural increase switched off the total changes by about 1e-15); the reduced struck-place model used for the disaster panels creates or loses nobody (residents + displaced + settled = 1); no disaster gives exactly no change; populations, capacities and the
   displaced stock stay non-negative and the displaced never exceed those who left;
 - the struck city's population change equals its cumulative in- minus out-flows; its capacity follows the fitted housing curve;
 - with two cities, no rebuilding and gradient return, it reproduces the original two-city code to 1e-5;
