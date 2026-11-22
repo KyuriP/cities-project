@@ -12,7 +12,7 @@ python3 00_build_data.py        # processed inputs in data/, verified against ha
 python3 12_acs.py               # ACS 1-year county housing and household size
 
 # --- Hurricane Katrina: network model
-python3 01_describe_data.py     # descriptive statistics, fig_data (Fig. S1)
+python3 01_describe_data.py     # descriptive statistics, fig_data (Fig. S2)
 python3 02_gravity.py           # network-wide and New Orleans gravity estimates, bootstrap
 python3 03_calibrate.py         # calibration (stages A-C), onward-migration evidence
 python3 04_validate.py          # out-of-sample validation
@@ -46,10 +46,10 @@ python3 22_pulse.py             # Household Pulse displacement vs ACS housing lo
 python3 25_destinations.py      # destinations beyond Katrina (IRS county flows)
 
 # --- figures
-python3 05_figures.py           # fig_calibration (3), fig_events (4), fig_panel (5), fig_simulations (S2), fig_campfire
-python3 09_map.py               # fig_map (2)
-python3 11_schematic.py         # fig_schematic (1)
-python3 15_holdout_fig.py       # fig_holdout (6)
-python3 19_hazard_fig.py        # fig_hazard (7)
+python3 05_figures.py           # fig_calibration (S3), fig_events (1), fig_panel (4), fig_simulations (S5), fig_campfire
+python3 09_map.py               # fig_map (S1)
+python3 11_schematic.py         # fig_schematic (2)
+python3 15_holdout_fig.py       # fig_holdout (3)
+python3 19_hazard_fig.py        # fig_hazard (S4)
 
 python3 -m pytest -q tests      # model tests

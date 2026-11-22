@@ -43,7 +43,7 @@
 
 
 \begin{abstract}
-Population recovery after disasters does not always follow the loss and rebuilding of housing. We test whether modelling departure, return and settlement improves population predictions. A metropolitan migration model calibrated on Hurricane Katrina captures broad recovery patterns but misses some destinations and return timing. We then test a reduced county model across 21 counties affected by fourteen disasters. Each disaster is excluded from fitting, and predictions use its observed housing recovery path. Median population prediction error is 3.0 percentage points, compared with 4.9 when population follows housing capacity and 3.6 for a dynamic model with a fixed occupancy threshold. Estimated thresholds change with the housing measure, and hazard geography does not consistently improve prediction. The results support combining housing recovery with migration dynamics. Direct observations of habitability and temporary accommodation are needed to explain why population remains above or below the level implied by housing counts.
+Population recovery after disasters does not always follow the loss and rebuilding of housing. We test whether modelling departure, return and settlement improves population predictions. A metropolitan migration model calibrated on Hurricane Katrina captures broad recovery patterns but misses some destinations and return timing. We then test a reduced county model across 21 counties affected by fourteen disasters. Each disaster is excluded from fitting, and predictions use its observed housing recovery path. Median population prediction error is 3.0 percentage points, compared with 4.9 when population follows housing capacity and 3.6 for a dynamic model with a fixed occupancy threshold. Estimated thresholds change with the housing measure, and pre-disaster hazard geography does not improve prediction. The results support combining housing recovery with migration dynamics. Direct observations of habitability and temporary accommodation are needed to explain why population remains above or below the level implied by housing counts.
 \end{abstract}
 
 \ifpnasversion
@@ -68,7 +68,7 @@ We examine the mismatch between housing and population recovery, develop a detai
 
 \subsection*{Population recovery diverges from housing recovery}\label{sec:panel}
 
-Population and housing recover at different rates after disasters. We first compare ten counties affected by Katrina, Rita, Harvey and the Camp Fire. Seven of these counties were struck by Katrina. Their first post-event Census housing estimates record losses ranging from 3.5\% in Aransas County to 78\% in St Bernard Parish. We express both population and housing relative to their projected pre-disaster trends (Methods).
+Population and housing recover at different rates after disasters. We first compare ten counties affected by Katrina, Rita, Harvey and the Camp Fire. Seven of these counties were struck by Katrina. Across all ten, first post-event Census housing estimates record losses ranging from 3.5\% in Aransas County to 78\% in St Bernard Parish. We express both population and housing relative to their projected pre-disaster trends (Methods).
 
 The differences run in both directions (Fig.~\ref{fig:events}). In Hancock, Harrison and Butte, population one year after the event exceeds the level implied by the remaining housing at pre-event occupancy by 6--20\%. This excess then narrows. In Hancock, it falls from 20\% in 2006 to 4\% in 2009. Temporary accommodation and shared housing could allow residents to remain locally. FEMA placed trailers and mobile homes across coastal Mississippi after Katrina \citep{GAO2007,EvansCowley2011}.
 
@@ -76,7 +76,7 @@ In Plaquemines, Cameron and Aransas, population falls below the level implied by
 
 \begin{figure}[tbp]
 \centering
-\figfile{figures/fig4_events.pdf}{\textwidth}
+\figfile{figures/fig1_events.pdf}{\textwidth}
 \caption{Population and housing in ten affected counties, ordered by housing loss. Dots show Census population and squares show housing units, both relative to pre-event linear trends. The dotted curve is the capacity path fitted through the housing estimates. The dashed curve fixes the model's occupancy threshold at $\phi^*=1$. The solid curve fits a separate threshold for each county. Time is measured from landfall for Katrina, Rita and Harvey, and from the Camp Fire for Butte.}
 \label{fig:events}
 \end{figure}
@@ -95,7 +95,7 @@ The model captures broad destination patterns, with $R^2=0.70$, close to the 0.7
 
 \begin{figure}[tbp]
 \centering
-\figfile{figures/fig1_schematic.pdf}{\textwidth}
+\figfile{figures/fig2_schematic.pdf}{\textwidth}
 \caption{Model processes illustrated with rates calibrated on Hurricane Katrina. (a) The disaster reduces the affected city's housing capacity, shown in ochre. The dashed circle marks its original capacity, and blue shows population. Solid arrows indicate movement towards areas with lower relative occupancy. Dashed arrows indicate return as capacity recovers. (b) Population and capacity in the affected city over time. The shaded area is its contribution to cumulative excess occupancy, a simulation measure defined in the Supplementary information. (c) Population trajectories under different occupancy thresholds $\phi^*$. Values above one allow population to remain above measured capacity. Values below one permit departure before that reference level is reached. These thresholds describe aggregate responses rather than household preferences.}
 \label{fig:schematic}
 \end{figure}
@@ -120,7 +120,7 @@ Prediction intervals are broad. The 90\% intervals average 19 percentage points 
 
 \begin{figure}[tbp]
 \centering
-\figfile{figures/fig6_holdout.pdf}{\textwidth}
+\figfile{figures/fig3_holdout.pdf}{\textwidth}
 \caption{Population prediction for disasters omitted from fitting. (a--h) The eight counties with the largest housing losses. Dots show Census population relative to trend and dotted curves show measured capacity. Predictions use parameters fitted to other disasters, with a pooled occupancy threshold shown by solid curves and $\phi^*=1$ by dashed curves. Both use the omitted county's observed capacity path. (i) Root-mean-square population error for all 21 counties, on a log scale and ordered by housing loss. Filled circles show the pooled model and squares show the $\phi^*=1$ model. Open circles assume that population follows capacity, while ticks assume no departure from trend. Medians appear above the panel in that order.}
 \label{fig:holdout}
 \end{figure}
@@ -155,7 +155,7 @@ Accommodation records do not resolve this ambiguity. FEMA hotel placements cover
 
 \begin{figure}[tbp]
 \centering
-\figfile{figures/fig5_panel.pdf}{\textwidth}
+\figfile{figures/fig4_panel.pdf}{\textwidth}
 \caption{Fitted thresholds, evacuation rates and population errors. (a) Occupancy threshold $\phi^*$ against first-year housing loss, with 95\% intervals. Values above one allow population to remain above measured housing capacity. Values below one allow departures while measured capacity remains. The threshold also captures error in the capacity measure. St Bernard reaches the lower fitting bound, so its boundary-based interval is not meaningful. (b) Evacuation rate against housing loss for the five counties in which it is identified. Bars show 95\% intervals and the dashed line is the log--log fit. (c) Root-mean-square error of population relative to trend. Crosses use the New Orleans metropolitan rates. Open symbols fit each county's rates with $\phi^*=1$. Filled symbols also fit $\phi^*$.}
 \label{fig:panel}
 \end{figure}
@@ -177,7 +177,7 @@ The fitted threshold summarises how population responds to measured capacity. Va
 
 Changing the housing measure changes some thresholds substantially. Census counts can include damaged homes that remain uninhabitable. ACS vacancy categories offer an alternative proxy, but they do not directly inspect habitability. The contrast between these measures is larger than the statistical uncertainty around several fitted thresholds. Interpreting the threshold as an observed ability to accommodate residents would therefore overstate what the data establish.
 
-Hazard geography does not resolve this problem. Its relation to the threshold is strongest within Katrina, changes with the capacity measure and does not consistently improve predictions for omitted disasters. The small comparisons using assistance records and household surveys also cannot determine where affected residents stayed. Direct records of temporary accommodation, housing habitability and moves within the county would make these explanations testable.
+Hazard geography does not resolve this problem. Its relation to the threshold is strongest within Katrina, changes with the capacity measure and does not improve predictions for omitted disasters on the main hazard measure. The small comparisons using assistance records and household surveys also cannot determine where affected residents stayed. Direct records of temporary accommodation, housing habitability and moves within the county would make these explanations testable.
 
 \subsection*{Limits of the evidence and next steps}
 
@@ -314,7 +314,7 @@ Predictions use the omitted county's measured post-event housing path. Its post-
 
 Two simple benchmarks set population equal to measured capacity or maintain its pre-event trend. Three additional regressions use the same training disasters and have no intercept. The first fits $N-1=b(K-1)$. The second adds $(K-1)t$, and the third also adds the first-year capacity gap $K_0-1$.
 
-Uncertainty in model comparisons uses 10{,}000 bootstrap draws of whole disasters, keeping affected counties together. We also report county-level paired Wilcoxon tests, which do not account for that clustering. Sensitivity checks vary $\tau$ to 0.05 or 0.2, the ACS inclusion threshold, and the housing measure in counties with both sources. These checks and the Katrina sensitivity analysis are detailed in Supplementary Methods and Supplementary Section~\ref{si:sensitivity}.
+Uncertainty in model comparisons uses 10{,}000 bootstrap draws of whole disasters (2{,}000 for the sensitivity variants), keeping affected counties together. We also report county-level paired Wilcoxon tests, which do not account for that clustering. Sensitivity checks vary $\tau$ to 0.05 or 0.2, the ACS inclusion threshold, and the housing measure in counties with both sources. These checks and the Katrina sensitivity analysis are detailed in Supplementary Methods and Supplementary Section~\ref{si:sensitivity}.
 
 The difference between models' median errors and the median of their paired county differences are distinct summaries. We report paired error reductions for the main capacity-tracking comparison. Bootstrap intervals for the statistical regression comparisons describe differences in median error. Counties remain weighted equally when calculating these summaries, while disaster-level resampling accounts for shared events.
 
@@ -330,21 +330,18 @@ Separate checks use OpenFEMA registrations and hotel placements, and Household P
 
 FEMA hotel stays count registrants who checked in under Transitional Sheltering Assistance. Rental-resource location fields are almost always blank. Household Pulse estimates use person weights and 80 replicate weights, with successive-difference variances scaled by $4/80$. The comparison with adults associated with lost housing multiplies ACS usable units lost by persons per household and an adult share of 0.78. State survey estimates and county housing totals have different geographic coverage.
 
-\subsection*{Writing assistance}
-ChatGPT (OpenAI) was used to revise the wording and organisation of the manuscript.
+\subsection*{Use of AI tools}
+Claude (Anthropic) was used to write and run analysis code, retrieve public data, prepare figures and draft text. ChatGPT (OpenAI) was used to revise the wording and organisation of the manuscript. The authors reviewed the code, results and text and take responsibility for them.
 
 
 \section*{Data and code availability}\label{sec:availability}
-IRS SOI migration data are available at \url{https://www.irs.gov/statistics/soi-tax-stats-migration-data}. Census population and housing estimates and Gazetteer files are available at \url{https://www2.census.gov}. ACS tables are accessed through the Census Data API at \url{https://api.census.gov}, using a free API key. FEMA Individual Assistance registrations are available through OpenFEMA at \url{https://www.fema.gov/about/openfema/data-sets}.
+IRS SOI migration data are available at \url{https://www.irs.gov/statistics/soi-tax-stats-migration-data}. Census population and housing estimates and Gazetteer files are available at \url{https://www2.census.gov}. ACS tables are accessed through the Census Data API at \url{https://api.census.gov}, using a free API key. FEMA Individual Assistance registrations and registrant records are available through OpenFEMA at \url{https://www.fema.gov/about/openfema/data-sets}. Household Pulse Survey public-use files are at \url{https://www.census.gov/programs-surveys/household-pulse-survey.html}. Census blocks were obtained from TIGERweb (\url{https://tigerweb.geo.census.gov}); flood hazard areas from the Esri Living Atlas copy of the FEMA National Flood Hazard Layer; storm-surge hazard maps from the NOAA National Hurricane Center; and elevation from Tilezen terrain tiles. The hazard classification computed from these services is included in the repository.
 
 The code, processed data, raw-file checksums, tests, and model audit are in \url{https://github.com/KyuriP/cities-project}, in the \texttt{empirical/} folder. The script \texttt{run\_all.sh} reproduces the reported numbers and figures from the raw files.
 
 \section*{Acknowledgements}
 This work began as a group project at the Santa Fe Institute Complex Systems Summer School 2026.
 
-% The earlier draft also noted Claude use for analysis code, public-data
-% retrieval and drafting. The authors should confirm that account and the
-% relevant tool versions before completing the disclosure for submission.
 \bibliographystyle{unsrtnat}
 \bibliography{refs}
 
@@ -373,7 +370,7 @@ Census population and housing figures are estimates. After Katrina, the Bureau p
 \subsubsection{Population and housing after Katrina}
 \begin{figure}[tbp]
 \centering
-\figfile{figures/fig2_map.pdf}{\textwidth}
+\figfile{figures/figS1_map.pdf}{\textwidth}
 \caption{Migration from and to New Orleans after Hurricane Katrina. (a) Excess out-migration in filing year 2005--06, by destination metropolitan area. Excess is the flow above its 2003--05 mean. (b) Excess in-migration in 2006--07, by origin metropolitan area. Circle area and line width represent IRS exemptions, aggregated from county flows. Suppressed flows are omitted. Grey dots mark the 196 metropolitan areas in the network. The star marks New Orleans.}
 \label{fig:map}
 \end{figure}
@@ -418,7 +415,7 @@ Housing units & & 0.727 & 0.812 & 0.857 & 0.871\\
 
 \begin{figure}[tbp]
 \centering
-\figfile{figures/figS1_data.pdf}{0.95\textwidth}
+\figfile{figures/figS2_data.pdf}{0.95\textwidth}
 \caption{Hurricane Katrina in the data. (a) Net domestic migration in New Orleans (black) and the four largest receiving metropolitan areas (grey). Census components of change cover years ending 30 June. (b) Population (dots) and housing units (squares) in the New Orleans metropolitan area on 1 July, relative to their 2001--05 linear trends. (c) Cumulative share of migrants by distance from New Orleans, using IRS county flows. (d) Shares of migrants moving to metropolitan areas received by the ten largest destinations of the 2005--06 excess. Open symbols show the baseline shares, and filled symbols show the storm-year shares.}
 \label{fig:data}
 \end{figure}
@@ -491,7 +488,7 @@ We next compare the calibrated model with additional migration and occupancy dat
 
 \begin{figure}[tbp]
 \centering
-\figfile{figures/fig3_calibration.pdf}{\textwidth}
+\figfile{figures/figS3_calibration.pdf}{\textwidth}
 \caption{Calibration and validation. (a) New Orleans population and housing relative to the 2001--05 trend. Dots show Census population and squares show housing units. The dashed curve is capacity fitted to housing. The population curve includes a 95\% Monte Carlo band. These are stage A and B targets. (b) Net domestic in-migration relative to the 2002--05 mean. Dots show Census estimates. The solid curve tracks displaced residents and includes a 95\% band. The dashed curve uses gradient-driven return. (c) Each receiving metropolitan area's share of excess out-migration in 2005--06, compared with its share of modelled population gains. The vertical group contains metropolitan areas with suppressed flows from New Orleans, which receive the same capped weight. (d) The corresponding comparison for origins of excess in-migration in 2006--07. (e) Census net domestic migration above the 2002--05 mean in 2005--06, compared with modelled July 2006 population gains for 60 metropolitan areas within 900~km. (f) Census persons per housing unit relative to trend, compared with modelled excess occupancy in the ten main receiving cities. Filled symbols indicate July 2006 and open symbols July 2007. Panels b--f provide validation comparisons. Grey lines mark $y=x$.}
 \label{fig:calib}
 \end{figure}
@@ -539,7 +536,7 @@ The threshold summarises the relation between population and measured housing ca
 Evacuation rates are identified in five counties, whose thresholds lie between 0.80 and 1.01. Across those counties, the estimated rate decreases as the housing shock increases. It is 3.5 per year in Jefferson, where 7\% of housing was lost, and 0.5 in St Bernard, where 78\% was lost. The log--log slope is $-0.77$, with $r=-0.91$ (Fig.~\ref{fig:panel}b). In the other five cases, population approaches the fitted threshold within months. The annual observations therefore do not identify the evacuation rate. The comparison of evacuation speeds rests on the five identified cases.
 
 \subsubsection{The threshold depends on how capacity is measured}
-Profile-likelihood intervals for $\phi^*$ are narrower than $\pm0.02$ in every county under the assumed measurement model. These intervals re-optimise evacuation and settling rates at each threshold. St Bernard's optimum remains 0.80 when the lower bound is relaxed to 0.6. Changing the capacity measure has much larger effects than these statistical intervals suggest.
+Profile-likelihood intervals for $\phi^*$ are narrower than the 0.02 grid spacing in every county under the assumed measurement model. These intervals re-optimise evacuation and settling rates at each threshold. St Bernard's optimum remains 0.80 when the lower bound is relaxed to 0.6. Changing the capacity measure has much larger effects than these statistical intervals suggest.
 
 Five counties have ACS coverage. Their survey-based usable housing measure excludes units vacant for other reasons, a category that includes some damaged homes. It falls farther than the Census housing-unit count. One year after Katrina, the usable housing measure is 0.41 of trend in Orleans, compared with 0.45 from the Census estimates. In Jefferson, the corresponding values are 0.83 and 0.93.
 
@@ -586,7 +583,7 @@ The pooled model improves on population proportional to capacity in 16 of 21 cou
 In St Bernard and Orleans, the pooled model follows a slower population recovery than capacity tracking predicts. Its largest errors occur where a common threshold poorly represents the county. The error is about 10 points in Hancock and 6--9 points in Cameron, Plaquemines and Aransas. For small events, population changes little relative to trend. In those cases, assuming no departure from trend performs about as well as the dynamic model.
 
 \subsubsection{Sensitivity of the prediction results}
-We quantify uncertainty by resampling whole disasters in a cluster bootstrap with 10{,}000 draws. The bootstrap keeps counties from the same disaster together. The county-level Wilcoxon tests do not account for this dependence, so we place more weight on the bootstrap intervals. Relative to proportional capacity tracking, the median paired error reduction is 1.9 percentage points, with a 95\% interval of 0.4--2.5. A county-level Wilcoxon signed-rank test gives $p=0.006$. The paired reduction remains 1.8--2.0 points when the threshold standard deviation is set to 0.05 or 0.2 instead of 0.1.
+We quantify uncertainty by resampling whole disasters in a cluster bootstrap with 10{,}000 draws (2{,}000 for the sensitivity variants). The bootstrap keeps counties from the same disaster together. The county-level Wilcoxon tests do not account for this dependence, so we place more weight on the bootstrap intervals. Relative to proportional capacity tracking, the median paired error reduction is 1.9 percentage points, with a 95\% interval of 0.4--2.5. A county-level Wilcoxon signed-rank test gives $p=0.006$. The paired reduction remains 1.8--2.0 points when the threshold standard deviation is set to 0.05 or 0.2 instead of 0.1.
 
 Changing the ACS inclusion threshold also changes the sample. A 3\% housing-loss threshold gives 24 counties and a paired reduction of 1.8 points. A 5\% threshold gives 17 counties and a reduction of 1.4 points, with $p=0.19$. The gain over the fixed-threshold dynamic model is smaller. Its median paired reduction is 0.5 points, with an interval of 0.2--1.3 and $p=0.17$. Across these variants, the reduction is 0.5--0.7 points.
 
@@ -625,7 +622,7 @@ The fitted hazard-area effect is small. Depending on the training set, the thres
 
 \begin{figure}[tbp]
 \centering
-\figfile{figures/fig7_hazard.pdf}{\textwidth}
+\figfile{figures/figS4_hazard.pdf}{\textwidth}
 \caption{Occupancy thresholds and mapped hazard geography. (a) Fitted threshold against the share of pre-disaster housing outside FEMA flood zones, NOAA Category~3 surge zones and NOAA levee areas. Inland flood cases use the flood zone alone. (b) Threshold against the share of housing at least 3~m above sea level for coastal storms. Filled symbols show Katrina counties and open symbols show other disasters. Bars are 95\% intervals. Galveston has no interval because its threshold is not identified. (c) Population prediction error when the threshold depends on the hazard measure in panel a, compared with error under a common pooled threshold. Both axes are logarithmic. Filled symbols indicate Katrina counties and the dashed line marks equal error. Hazard zones use current map products.}
 \label{fig:hazard}
 \end{figure}
@@ -676,7 +673,7 @@ The prototype linked network position to severity through onward migration from 
 
 \begin{figure}[tbp]
 \centering
-\figfile{figures/figS2_simulations.pdf}{\textwidth}
+\figfile{figures/figS5_simulations.pdf}{\textwidth}
 \caption{Severity in the calibrated model over the first six years after the shock, measured in excess-occupancy person-years per resident of the affected city. (a) Severity when each of the 196 metropolitan areas is affected, plotted against its evacuation rate. Circles use rates proportional to pre-disaster out-migration intensity. The filled circle marks New Orleans. The grey band shows the range when all cities use the calibrated New Orleans rate. (b) Severity after a New Orleans shock as a function of capacity lost at landfall. The solid line shows total severity, and the dashed line shows the contribution from receiving cities. The dotted line marks the calibrated capacity loss. (c) The same outcomes as a function of the receiving cities' capacity response. The grey band marks its calibrated 95\% interval.}
 \label{fig:sims}
 \end{figure}

@@ -42,8 +42,8 @@ summer-school model is in [`../prototype/MODEL_AUDIT.md`](../prototype/MODEL_AUD
 | `25_destinations.py` | Destinations of excess out-migration beyond Katrina (IRS county flows) | `destinations.json` |
 | `05_figures.py`, `09_map.py`, `11_schematic.py`, `15_holdout_fig.py`, `19_hazard_fig.py` | Figures | `output/fig_*.pdf` |
 
-Figures in the paper: `fig_schematic` (Fig. 1), `fig_map` (2), `fig_calibration` (3), `fig_events` (4),
-`fig_panel` (5), `fig_holdout` (6), `fig_hazard` (7); supplementary `fig_data` (S1), `fig_simulations` (S2).
+Figures in the paper: `fig_events` (Fig. 1), `fig_schematic` (2), `fig_holdout` (3), `fig_panel` (4); supplementary
+`fig_map` (S1), `fig_data` (S2), `fig_calibration` (S3), `fig_hazard` (S4), `fig_simulations` (S5).
 `paper/figures/` holds copies named by figure number.
 
 ## Main results

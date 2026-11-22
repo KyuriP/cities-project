@@ -1,6 +1,6 @@
 """Fig. 6: prediction for disasters not used in fitting (output/holdout.json from 14_holdout.py).
-(a-h) held-out population paths for the eight counties with the largest housing losses;
-(i) error of each predictor for all 21 held-out counties."""
+(a-h) predicted population paths (each disaster omitted from fitting) for the eight counties with the largest housing losses;
+(i) error of each predictor for all 21 counties."""
 import json
 import numpy as np
 import matplotlib.pyplot as plt
@@ -47,7 +47,7 @@ short = {"Tuscaloosa tornado": "tornado", "Louisiana floods": "floods", "Lahaina
 lab = [f"{r['name'].rsplit(' ', 1)[0] if r['src'] == 'acs' else r['name']} ({short.get(r['g'], r['g'])})" for r in order]
 ax.set_yticks(y); ax.set_yticklabels(lab, fontsize=6); ax.set_xscale("log")
 ax.set_xticks([1, 2, 5, 10, 20, 50]); ax.set_xticklabels(["1", "2", "5", "10", "20", "50"]); ax.set_xlim(0.6, 80)
-ax.set_xlabel("held-out error (pp of population)", labelpad=1)
+ax.set_xlabel("prediction error (pp of population)", labelpad=1)
 ax.plot([], [], "o", color=figstyle.MOD, ms=3, label=r"pooled $\phi^*$")
 ax.plot([], [], "s", mfc="white", mec=figstyle.ALT, ms=2.8, label=r"$\phi^*=1$")
 ax.plot([], [], "o", mfc="white", mec=figstyle.CAP, ms=3, label="population = capacity")

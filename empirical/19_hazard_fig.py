@@ -1,6 +1,6 @@
-"""Fig. 9: tolerated occupancy against pre-disaster hazard geography (output/hazard_geography.json,
+"""Occupancy threshold against pre-disaster hazard geography (output/hazard_geography.json,
 output/holdout_geo.json). (a) share of housing outside the mapped flood, surge and levee hazard; (b) share of housing
-on ground at least 3 m above sea level (coastal storms); (c) held-out error with geography-predicted vs pooled phi*."""
+on ground at least 3 m above sea level (coastal storms); (c) prediction error with geography-predicted vs pooled phi*."""
 import json
 import numpy as np
 import matplotlib.pyplot as plt
@@ -48,7 +48,7 @@ for ax, m, xl in ((axs[0], "outside_primary", "housing outside flood, surge\nand
     ax.set_xlim(-0.04, 1.08); ax.set_ylim(0.65, 1.45); ax.set_xlabel(xl)
     pf = f"{t['p_spearman']:.3f}" if t['p_spearman'] < 0.01 else f"{t['p_spearman']:.2f}"
     ax.text(0.02, 0.97, f"Spearman {t['spearman']:.2f} (p = {pf}), n = {t['n']}", transform=ax.transAxes, fontsize=5.8, va="top", color="0.3")
-axs[0].set_ylabel(r"tolerated occupancy $\phi^*$")
+axs[0].set_ylabel(r"occupancy threshold $\phi^*$")
 axs[0].plot([], [], "o", color=figstyle.MOD, ms=3.2, label="Katrina counties"); axs[0].plot([], [], "o", mfc="white", mec=figstyle.OBS, ms=2.8, label="other disasters")
 axs[0].legend(loc="upper right", fontsize=5.8, bbox_to_anchor=(1.0, 0.9))
 
@@ -59,7 +59,7 @@ ax.plot([0.5, 20], [0.5, 20], color="0.6", lw=0.6, ls="--")
 ax.set_xscale("log"); ax.set_yscale("log"); ax.set_xlim(0.5, 20); ax.set_ylim(0.5, 20)
 for a in (ax.xaxis, ax.yaxis): a.set_major_formatter(plt.FuncFormatter(lambda v, _: f"{v:g}"))
 s = HG["primary"]["summary"]
-ax.set_xlabel(r"held-out error, pooled $\phi^*$ (pp)"); ax.set_ylabel(r"held-out error, $\phi^*$ from geography (pp)")
+ax.set_xlabel(r"prediction error, pooled $\phi^*$ (pp)"); ax.set_ylabel(r"prediction error, $\phi^*$ from geography (pp)")
 ax.text(0.04, 0.97, f"geography better in {s['G_beats_H']} of {s['n']}\nmedian {100 * s['G']['median']:.1f} vs {100 * s['H']['median']:.1f} pp",
         transform=ax.transAxes, fontsize=5.8, va="top", color="0.3")
 figstyle.letters(axs, labels="abc")

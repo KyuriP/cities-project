@@ -154,7 +154,7 @@ for _, r in d.iterrows():
                    path_effects=[mpl.patheffects.withStroke(linewidth=1.8, foreground="white")])
 ax[0].set_xscale("log"); ax[0].set_xlim(0.025, 1.2); ax[0].set_ylim(0.6, 1.5)
 ax[0].xaxis.set_major_formatter(mpl.ticker.FuncFormatter(lambda v, _: f"{v:g}"))
-ax[0].set_xlabel("housing lost (first year)"); ax[0].set_ylabel(r"tolerated occupancy $\phi^*$")
+ax[0].set_xlabel("housing lost (first year)"); ax[0].set_ylabel(r"occupancy threshold $\phi^*$")
 idn = EVR["relations"]["S_identified"]["events"]; di = d[d.name.isin(idn)]
 ax[1].errorbar(di.shock, di.S, yerr=[di.S - di.Slo, di.Shi - di.S], fmt="o", color=fs.OBS, ms=3, lw=0.6, capsize=0)
 xx = np.linspace(0.05, 0.9, 50); b = np.polyfit(np.log(di.shock), np.log(di.S), 1)
