@@ -27,12 +27,12 @@ summer-school model is in [`../prototype/MODEL_AUDIT.md`](../prototype/MODEL_AUD
 | `04_validate.py` | Out-of-sample validation: destinations, returnee origins, host migration | `validation.json` |
 | `05_uncertainty.py`, `06_sensitivity.py` | Jackknife and Monte Carlo propagation; 11 analyst-choice variants | `uncertainty.json`, `sensitivity.json` |
 | `07_simulations.py`, `08_campfire.py` | Severity across metros and sweeps; Camp Fire with the Katrina rates | `simulations.json`, `campfire.json` |
-| `10_events.py` | Ten-county Census panel: housing-only, tolerated-occupancy and pooled fits; transfer tests | `events.json` |
+| `10_events.py` | Ten-county Census panel: housing-only, occupancy-threshold and pooled fits; transfer tests | `events.json` |
 | `13_acs_panel.py` | 43 pre-specified county–disaster pairs (2008–2024) with ACS-measured capacity | `acs_panel.json` |
 | `23_capacity_check.py` | Profile-likelihood intervals for `phis`; refit of five counties with ACS capacity | `capacity_check.json` |
 | `14_holdout.py` | Leave-one-disaster-out prediction, 21 counties, 14 disasters; settings by environment variables (`HOLDOUT_TAU`, `HOLDOUT_MIN_LOSS`, `HOLDOUT_ACSCAP`, `HOLDOUT_TAG`) | `holdout*.json` |
 | `20_holdout_uncertainty.py` | Cluster bootstrap over disasters, Wilcoxon tests, sensitivity summary | `holdout_uncertainty.json` |
-| `24_baseline.py` | Statistical forecasts in the same folds | `baseline.json` |
+| `24_baseline.py` | Statistical and partial-adjustment forecasts in the same folds | `baseline.json` |
 | `26_pred_intervals.py` | Prediction intervals and their coverage | `pred_intervals.json` |
 | `16_damage_geography.py` | FEMA registrations per ZIP code vs `phis` | `damage_geography.json` |
 | `browser/hazard_geography.js`, `17_hazard_geography.py` | Pre-disaster share of housing outside flood, surge and levee zones and above 3 m (browser step; result in `data/hazard_geography.json`); tests against `phis` | `hazard_geography.json` |
@@ -52,11 +52,11 @@ Figures in the paper: `fig_events` (Fig. 1), `fig_schematic` (2), `fig_holdout` 
   response 1.9/yr (0.4–8.6). Not fitted, the model reproduces evacuee destinations (R² 0.70) and returnee origins
   (R² 0.55), but underestimates Houston's share by half and returns too slowly in the IRS data.
 - **Ten-county panel:** housing loss alone fits the flooded New Orleans parishes but not the other events; a
-  per-county tolerated occupancy (0.80–1.25) fits all ten. With ACS-measured capacity, tolerated occupancy rises in
+  per-county occupancy threshold (0.80–1.25) fits all ten. With ACS-measured capacity, the threshold rises in
   all five covered counties, strongly in Orleans (0.97 to 1.27), so the contrast is robust only for Mississippi and
   Butte.
-- **Held-out prediction:** median error 3.0 percentage points with a pooled tolerated occupancy of 1.03, against
-  3.6 with 1.0, 4.9 if population tracks capacity, 6.3 for no change, and 4.0–5.6 for statistical forecasts. The gain
+- **Held-out prediction:** median error 3.0 percentage points with a pooled occupancy threshold of 1.03, against
+  3.6 with 1.0, 4.9 if population tracks capacity, 6.3 for no change, and 4.0–6.0 for statistical forecasts, including partial adjustment towards capacity (4.6). The gain
   over capacity tracking holds in sensitivity runs, including survey-measured capacity (3.0 vs 6.1); the gain over
   `phis = 1` is not significant.
 - **Mechanism checks** are weak or illustrative: hazard geography ranks `phis` only with Census capacity and does not
