@@ -1,7 +1,6 @@
-# Disasters differ in how much displacement they absorb locally
+# A migration model of population recovery after disasters
 
-Code, data and manuscript for *"Disasters differ in how much displacement they absorb locally: a calibrated model
-tested on fourteen US disasters"*. The project began as the group project "Ecology of Urban Systems" at the Santa Fe
+Code, data and manuscript for *"A migration model of population recovery after disasters"*. The project began as the group project "Ecology of Urban Systems" at the Santa Fe
 Institute Complex Systems Summer School 2026.
 
 A metapopulation model in which places have populations and housing capacities: residents leave when occupancy
