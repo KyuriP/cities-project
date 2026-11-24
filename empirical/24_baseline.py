@@ -11,7 +11,7 @@ least squares on the other disasters' county-years and applied to the held-out c
       post-event population observation of the held-out county is used
   L2  as L1 with target b g_k (fitted rate and fitted long-run share of the capacity gap)
 Compared with the pooled-phi* model (H) by paired Wilcoxon tests on county errors and a cluster bootstrap over
-disasters. Writes output/baseline.json."""
+disasters, and likewise with the dynamic model at phi* = 1 (A, key "A_vs"). Writes output/baseline.json."""
 import json
 import numpy as np
 from scipy.optimize import least_squares
@@ -45,7 +45,7 @@ def lag_fit(train, kind):
 
 res = {"rows": []}
 for r in rows:
-    out = dict(name=r["name"], g=r["g"], loss=r["loss"], H=r["rmse"]["H"], K=r["rmse"]["K"])
+    out = dict(name=r["name"], g=r["g"], loss=r["loss"], H=r["rmse"]["H"], A=r["rmse"]["A"], K=r["rmse"]["K"])
     for kind in ("R1", "R2", "R3"):
         X, y = zip(*[design(q, kind) for q in rows if q["g"] != r["g"]]); X, y = np.vstack(X), np.concatenate(y)
         b = np.linalg.lstsq(X, y, rcond=None)[0]
@@ -54,7 +54,7 @@ for r in rows:
         a, b = lag_fit([q for q in rows if q["g"] != r["g"]], kind); out[kind + "_par"] = [float(a), float(b)]
         out[kind] = float(np.sqrt(np.mean((lag_path(r, a, b) - (np.array(r["obs"]) - 1)) ** 2)))
     res["rows"].append(out)
-E = {k: np.array([r[k] for r in res["rows"]]) for k in ("H", "K", "R1", "R2", "R3", "L1", "L2")}
+E = {k: np.array([r[k] for r in res["rows"]]) for k in ("H", "A", "K", "R1", "R2", "R3", "L1", "L2")}
 g = sorted(set(r["g"] for r in res["rows"]))
 for k in ("R1", "R2", "R3", "L1", "L2"):
     d = E[k] - E["H"]; boot = []
@@ -66,6 +66,16 @@ for k in ("R1", "R2", "R3", "L1", "L2"):
                   severe_median=float(np.median([r[k] for r in res["rows"] if r["loss"] >= 0.10])))
     print(f"{k}: median {100*res[k]['median']:.1f} pp (H {100*np.median(E['H']):.1f}); H better in {res[k]['wins_H']}/21; Wilcoxon p {res[k]['wilcoxon_p']:.3f}; "
           f"diff of medians 95% [{100*res[k]['diff_median_ci95'][0]:.1f}, {100*res[k]['diff_median_ci95'][1]:.1f}]; severe median {100*res[k]['severe_median']:.1f} (H {100*np.median([r['H'] for r in res['rows'] if r['loss'] >= 0.1]):.1f})")
+res["A_vs"] = {}
+for k in ("R1", "R2", "R3", "L1", "L2"):
+    boot = []
+    for _ in range(10000):
+        idx = [i for gg in rng.choice(g, len(g)) for i, r in enumerate(res["rows"]) if r["g"] == gg]
+        boot.append(np.median(E[k][idx]) - np.median(E["A"][idx]))
+    res["A_vs"][k] = dict(wins_A=int(np.sum(E["A"] < E[k])), wilcoxon_p=float(wilcoxon(E[k], E["A"]).pvalue),
+                          diff_median_ci95=[float(v) for v in np.percentile(boot, [2.5, 97.5])])
+    print(f"A (phi*=1, median {100*np.median(E['A']):.1f}) vs {k}: A better in {res['A_vs'][k]['wins_A']}/21; Wilcoxon p {res['A_vs'][k]['wilcoxon_p']:.3f}; "
+          f"diff of medians 95% [{100*res['A_vs'][k]['diff_median_ci95'][0]:.1f}, {100*res['A_vs'][k]['diff_median_ci95'][1]:.1f}]")
 aa = {k: np.median([r[k + "_par"][0] for r in res["rows"]]) for k in ("L1", "L2")}
 bb = np.median([r["L2_par"][1] for r in res["rows"]])
 print(f"median fitted adjustment rate: L1 {aa['L1']:.2f}/yr, L2 {aa['L2']:.2f}/yr with b {bb:.2f}")

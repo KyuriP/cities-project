@@ -1,0 +1,195 @@
+{
+ "katrina": {
+  "max_host_excess": 0.03898560977170895,
+  "top_hosts": [
+   [
+    "26380",
+    0.03898560977170895
+   ],
+   [
+    "25060",
+    0.034070526691004854
+   ],
+   [
+    "12940",
+    0.030456341522441255
+   ]
+  ],
+  "max_displaced_weighted_excess": 0.00909556656197991,
+  "max_pop_diff": 0.00356665627950703
+ },
+ "irs_coverage": {
+  "n": 19,
+  "median_share": 0.6203931203931204,
+  "min_share": 0.2854368932038835,
+  "max_share": 0.8728616211374832,
+  "median_destinations": 39.0,
+  "min_destinations": 2,
+  "rows": [
+   {
+    "name": "Orleans",
+    "disaster": "Katrina",
+    "filing_year": 2004,
+    "out_exemptions": 22330,
+    "n_destinations": 129,
+    "reported_share": 0.8728616211374832
+   },
+   {
+    "name": "St Bernard",
+    "disaster": "Katrina",
+    "filing_year": 2004,
+    "out_exemptions": 2634,
+    "n_destinations": 12,
+    "reported_share": 0.7361427486712224
+   },
+   {
+    "name": "Plaquemines",
+    "disaster": "Katrina",
+    "filing_year": 2004,
+    "out_exemptions": 2234,
+    "n_destinations": 11,
+    "reported_share": 0.5487914055505819
+   },
+   {
+    "name": "Jefferson",
+    "disaster": "Katrina",
+    "filing_year": 2004,
+    "out_exemptions": 22878,
+    "n_destinations": 111,
+    "reported_share": 0.8602150537634409
+   },
+   {
+    "name": "Hancock",
+    "disaster": "Katrina",
+    "filing_year": 2004,
+    "out_exemptions": 2277,
+    "n_destinations": 12,
+    "reported_share": 0.5638998682476943
+   },
+   {
+    "name": "Harrison",
+    "disaster": "Katrina",
+    "filing_year": 2004,
+    "out_exemptions": 12180,
+    "n_destinations": 109,
+    "reported_share": 0.6729064039408867
+   },
+   {
+    "name": "Jackson",
+    "disaster": "Katrina",
+    "filing_year": 2004,
+    "out_exemptions": 7255,
+    "n_destinations": 42,
+    "reported_share": 0.5904893177119228
+   },
+   {
+    "name": "Cameron",
+    "disaster": "Rita",
+    "filing_year": 2004,
+    "out_exemptions": 483,
+    "n_destinations": 2,
+    "reported_share": 0.5217391304347826
+   },
+   {
+    "name": "Aransas",
+    "disaster": "Harvey",
+    "filing_year": 2016,
+    "out_exemptions": 2641,
+    "n_destinations": 7,
+    "reported_share": 0.4513441878076486
+   },
+   {
+    "name": "Butte",
+    "disaster": "Camp Fire",
+    "filing_year": 2017,
+    "out_exemptions": 10622,
+    "n_destinations": 55,
+    "reported_share": 0.7643569949162117
+   },
+   {
+    "name": "Galveston TX",
+    "disaster": "Ike",
+    "filing_year": 2007,
+    "error": "IndexError"
+   },
+   {
+    "name": "Tuscaloosa AL",
+    "disaster": "Tuscaloosa tornado",
+    "filing_year": 2010,
+    "error": "AttributeError"
+   },
+   {
+    "name": "East Baton Rouge LA",
+    "disaster": "Louisiana floods",
+    "filing_year": 2015,
+    "out_exemptions": 19139,
+    "n_destinations": 73,
+    "reported_share": 0.7650347458069909
+   },
+   {
+    "name": "Robeson NC",
+    "disaster": "Matthew",
+    "filing_year": 2015,
+    "out_exemptions": 4070,
+    "n_destinations": 14,
+    "reported_share": 0.6203931203931204
+   },
+   {
+    "name": "Jefferson TX",
+    "disaster": "Harvey",
+    "filing_year": 2016,
+    "out_exemptions": 13770,
+    "n_destinations": 37,
+    "reported_share": 0.7180101670297748
+   },
+   {
+    "name": "Monroe FL",
+    "disaster": "Irma",
+    "filing_year": 2016,
+    "out_exemptions": 8413,
+    "n_destinations": 39,
+    "reported_share": 0.48199215499821707
+   },
+   {
+    "name": "Napa CA",
+    "disaster": "Tubbs fire",
+    "filing_year": 2016,
+    "out_exemptions": 8135,
+    "n_destinations": 36,
+    "reported_share": 0.7484941610325753
+   },
+   {
+    "name": "Onslow NC",
+    "disaster": "Florence",
+    "filing_year": 2017,
+    "out_exemptions": 24510,
+    "n_destinations": 88,
+    "reported_share": 0.4625050999592003
+   },
+   {
+    "name": "Bay FL",
+    "disaster": "Michael",
+    "filing_year": 2017,
+    "out_exemptions": 13882,
+    "n_destinations": 58,
+    "reported_share": 0.506339144215531
+   },
+   {
+    "name": "Calcasieu LA",
+    "disaster": "Laura",
+    "filing_year": 2019,
+    "out_exemptions": 11255,
+    "n_destinations": 42,
+    "reported_share": 0.6683251888049756
+   },
+   {
+    "name": "Maui HI",
+    "disaster": "Lahaina fire",
+    "filing_year": 2022,
+    "out_exemptions": 5665,
+    "n_destinations": 21,
+    "reported_share": 0.2854368932038835
+   }
+  ]
+ }
+}

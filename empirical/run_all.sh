@@ -36,12 +36,14 @@ done
 python3 20_holdout_uncertainty.py  # cluster bootstrap, Wilcoxon tests, sensitivity summary
 python3 24_baseline.py          # statistical baselines in the same folds
 python3 26_pred_intervals.py    # prediction intervals and coverage
+python3 27_early_damage.py      # prediction from the first-year housing loss only
+python3 28_reduction_check.py   # network vs county model; IRS county-flow coverage
 
 # --- mechanism and further checks
-python3 16_damage_geography.py  # FEMA registrations per ZIP code vs tolerated occupancy
-python3 17_hazard_geography.py  # pre-disaster hazard geography vs tolerated occupancy
-python3 18_holdout_geo.py       # held-out prediction with tolerated occupancy from hazard geography
-python3 21_fema_mechanism.py    # FEMA registrant records (hotel stays) vs tolerated occupancy
+python3 16_damage_geography.py  # FEMA registrations per ZIP code vs occupancy threshold
+python3 17_hazard_geography.py  # pre-disaster hazard geography vs occupancy threshold
+python3 18_holdout_geo.py       # held-out prediction with occupancy threshold from hazard geography
+python3 21_fema_mechanism.py    # FEMA registrant records (hotel stays) vs occupancy threshold
 python3 22_pulse.py             # Household Pulse displacement vs ACS housing loss
 python3 25_destinations.py      # destinations beyond Katrina (IRS county flows)
 

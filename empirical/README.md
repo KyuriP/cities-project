@@ -34,6 +34,8 @@ summer-school model is in [`../prototype/MODEL_AUDIT.md`](../prototype/MODEL_AUD
 | `20_holdout_uncertainty.py` | Cluster bootstrap over disasters, Wilcoxon tests, sensitivity summary | `holdout_uncertainty.json` |
 | `24_baseline.py` | Statistical and partial-adjustment forecasts in the same folds | `baseline.json` |
 | `26_pred_intervals.py` | Prediction intervals and their coverage | `pred_intervals.json` |
+| `27_early_damage.py` | Prediction when only the first-year housing loss is known (typical or no rebuilding) | `early_damage.json` |
+| `28_reduction_check.py` | Network vs county model for Katrina; share of out-migration in reported IRS county flows | `reduction_check.json` |
 | `16_damage_geography.py` | FEMA registrations per ZIP code vs `phis` | `damage_geography.json` |
 | `browser/hazard_geography.js`, `17_hazard_geography.py` | Pre-disaster share of housing outside flood, surge and levee zones and above 3 m (browser step; result in `data/hazard_geography.json`); tests against `phis` | `hazard_geography.json` |
 | `18_holdout_geo.py` | Held-out prediction with `phis` from hazard geography | `holdout_geo.json` |
