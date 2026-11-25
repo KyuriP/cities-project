@@ -46,7 +46,6 @@ summer-school model is in [`../prototype/MODEL_AUDIT.md`](../prototype/MODEL_AUD
 
 Figures in the paper: `fig_events` (Fig. 1), `fig_schematic` (2), `fig_holdout` (3), `fig_panel` (4); supplementary
 `fig_map` (S1), `fig_data` (S2), `fig_calibration` (S3), `fig_hazard` (S4), `fig_simulations` (S5).
-`paper/figures/` holds copies named by figure number.
 
 ## Main results
 
