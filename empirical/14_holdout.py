@@ -26,6 +26,13 @@ TAG = os.environ.get("HOLDOUT_TAG", "")                     # output suffix for 
 ev10 = pickle.load(open(OUT / "events_inputs.pkl", "rb")); ev13 = pickle.load(open(OUT / "acs_inputs.pkl", "rb"))
 group = lambda d: d.rsplit(" ", 1)[0] if d[-4:].isdigit() else d
 EV = ev10 + [e for e in ev13 if e["loss"] >= MIN_LOSS and not (group(e["disaster"]) == "Camp Fire" and e["fips"] == "06007")]
+if os.environ.get("HOLDOUT_ACSCAP"):   # sensitivity: survey-measured capacity for the Census-panel counties the ACS covers
+    from struck import capacity_piecewise
+    CC = json.load(open(OUT / "capacity_check.json"))["capacity_check"]
+    for e in EV:
+        if e["src"] == "census" and e["name"] in CC:
+            c = CC[e["name"]]; tc = np.array(c["acs_years"]) + 0.5 - e["t0"]; Kf = capacity_piecewise(tc, np.array(c["acs_capacity"]))
+            e["Kv"] = np.array([Kf(t) for t in e["Kt"]]); e["loss"] = float(1 - c["acs_capacity"][0]); e["capacity"] = "acs"
 for e in EV:
     e["g"] = group(e["disaster"]); e["K"] = (lambda kt, kv: (lambda s: np.interp(s, kt, kv)))(e["Kt"], e["Kv"])
     if e.get("fy_end") is None or np.isnan(e["share_obs"]): e["share_obs"] = np.nan

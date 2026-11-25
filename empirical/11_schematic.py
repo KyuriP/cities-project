@@ -1,7 +1,7 @@
 """Fig. 1: model illustration drawn from the model itself (calibrated Katrina rates).
 (a) struck city and hosts: capacity loss, evacuation down the occupancy gradient, return of the displaced;
 (b) struck place over time: capacity, population and excess occupancy (severity);
-(c) same shock with different tolerated occupancy phi* (local absorption vs abandonment)."""
+(c) same shock with different occupancy thresholds phi*."""
 import json
 import numpy as np
 import matplotlib.pyplot as plt
@@ -62,14 +62,14 @@ ax1.plot(tt, KK, color=fs.CAP, lw=1.0, ls="--")
 ax1.plot(tt, NN, color=fs.MOD, lw=1.2)
 fs.label(ax1, 3.0, float(K(3.0)) + 0.035, r"capacity $K_s$", color=fs.CAP, ha="left")
 fs.label(ax1, 3.0, float(np.interp(3.0, t, N)) - 0.04, r"population $N_s$", color=fs.MOD, ha="left")
-ax1.annotate("crowding", (0.32, 0.705), xytext=(0.9, 0.6), fontsize=6, ha="left", va="center",
+ax1.annotate("excess occupancy", (0.32, 0.705), xytext=(0.9, 0.6), fontsize=6, ha="left", va="center",
              arrowprops=dict(arrowstyle="-", lw=0.5, color="0.45", shrinkA=1, shrinkB=0))
 ax1.set_xlim(-0.6, 6); ax1.set_ylim(0.5, 1.05); ax1.set_xticks([0, 2, 4, 6])
 ax1.set_xlabel("years after the disaster"); ax1.set_ylabel("relative to pre-disaster size")
 
-# ---- (c) tolerated occupancy
-for phis, ls, lab, dy in [(1.2, (0, (5, 1.5)), r"absorption, $\phi^*=1.2$", 0.03), (1.0, "-", r"$\phi^*=1$", 0.03),
-                         (0.9, (0, (1, 1.2)), r"abandonment, $\phi^*=0.9$", -0.035)]:
+# ---- (c) occupancy threshold
+for phis, ls, lab, dy in [(1.2, (0, (5, 1.5)), r"$\phi^*=1.2$", 0.03), (1.0, "-", r"$\phi^*=1$", 0.03),
+                         (0.9, (0, (1, 1.2)), r"$\phi^*=0.9$", -0.035)]:
     t, N, _ = run(phis)
     ax2.plot(np.r_[-0.6, 0, t], np.r_[1, 1, N], color=fs.MOD, lw=1.1, ls=ls)
     fs.label(ax2, 2.2, float(np.interp(2.2, t, N)) + dy, lab, color=fs.MOD, ha="left")

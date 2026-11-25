@@ -4,7 +4,7 @@ With zero host-host coupling and large host areas (Section 'Ten disasters'), the
 the struck place (population N, capacity K(t)) and its displaced residents D living elsewhere:
     dN/dt = -S N (N/K - phi*)_+ + kappa (phi* - N/K)_+ D
     dD/dt =  S N (N/K - phi*)_+ - kappa (phi* - N/K)_+ D - lam D
-phi* = 1 is the main model; phi* != 1 is the tolerated occupancy. N, K are relative to the pre-event trend (N0 = 1).
+phi* = 1 is the network limit; phi* != 1 generalises it with an occupancy threshold (check: 28_reduction_check.py). N, K are relative to the pre-event trend (N0 = 1).
 State also accumulates cumulative out- and in-migration for comparison with IRS filing years."""
 import numpy as np
 from scipy.integrate import solve_ivp
