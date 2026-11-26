@@ -5,3 +5,4 @@ empirical/output/sensitivity/
 empirical/raw/*
 !empirical/raw/MANIFEST.txt
 empirical/output/*.pkl
+.DS_Store
