@@ -1,7 +1,15 @@
-"""Sensitivity of calibrated parameters and validation metrics to analyst choices.
-Each variant reruns 02 (gravity), the full calibration and the validation in a fresh process with different settings.
-Writes output/sensitivity.json."""
-import json, os, subprocess, sys
+"""Do the fitted values and the checks change if we make different analysis choices?
+
+Each variant (different base years, trend window, metro size cut-off, distance cut-off, number of hosts) reruns the
+gravity fit, the calibration and the validation in a separate process.
+
+Writes output/sensitivity.json.
+"""
+
+import json
+import os
+import subprocess
+import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -20,7 +28,7 @@ VARIANTS = {
     "host coupling S_med = 0.05": {"CAL_SMED": "0.05"},
     "network: gravity kernel": {"CAL_KIND": "gravity"},
 }
-CODE = r'''
+CODE = r"""
 import json, os, numpy as np
 from common import OUT
 from model import Network
@@ -30,7 +38,7 @@ net = Network()
 S_med = float(os.environ.get("CAL_SMED", "0")); kind = os.environ.get("CAL_KIND", "empirical")
 r = calibrate(net, S_med=S_med, kind=kind, verbose=False)
 json.dump(r, open(OUT / "calibration.json", "w"), default=float)
-'''
+"""
 
 
 def run(env, folder):
@@ -39,15 +47,30 @@ def run(env, folder):
     subprocess.run([sys.executable, "02_gravity.py"], cwd=HERE, env=e, check=True, capture_output=True)
     subprocess.run([sys.executable, "-c", CODE], cwd=HERE, env=e, check=True, capture_output=True)
     # validation needs an alternative-return entry; reuse main structure
-    cal = json.load(open(folder / "calibration.json")); cal["alternative_gradient_return"] = dict(cal)
+    cal = json.load(open(folder / "calibration.json"))
+    cal["alternative_gradient_return"] = dict(cal)
     json.dump(cal, open(folder / "calibration.json", "w"), default=float)
     subprocess.run([sys.executable, "04_validate.py"], cwd=HERE, env=e, check=True, capture_output=True)
-    cal = json.load(open(folder / "calibration.json")); val = json.load(open(folder / "validation.json"))
+    cal = json.load(open(folder / "calibration.json"))
+    val = json.load(open(folder / "validation.json"))
     v = val["tracked/empirical"] if env.get("CAL_KIND") != "gravity" else val["tracked/gravity"]
-    return dict(n_metros=cal["n_metros"], d0=cal["A"]["d0"], dinf=cal["A"]["dinf"], rho_s=cal["A"]["rho_s"],
-                S_s=cal["B"]["S_s"], kappa=cal["B"]["kappa"], lam=cal["B"]["lam"], rho_h=cal["C"]["rho_h"],
-                pop_sse=cal["B"]["sse_pop"], dest_R2=v["V1_dest_R2"], return_R2=v["V2_return_R2"],
-                return_ratio=v["V3_return_ratio"][1], dm_corr=v["V4_dm_corr"], dm_slope=v["V4_dm_slope"], occ_corr=v["V5_occ_corr"])
+    return dict(
+        n_metros=cal["n_metros"],
+        d0=cal["A"]["d0"],
+        dinf=cal["A"]["dinf"],
+        rho_s=cal["A"]["rho_s"],
+        S_s=cal["B"]["S_s"],
+        kappa=cal["B"]["kappa"],
+        lam=cal["B"]["lam"],
+        rho_h=cal["C"]["rho_h"],
+        pop_sse=cal["B"]["sse_pop"],
+        dest_R2=v["V1_dest_R2"],
+        return_R2=v["V2_return_R2"],
+        return_ratio=v["V3_return_ratio"][1],
+        dm_corr=v["V4_dm_corr"],
+        dm_slope=v["V4_dm_slope"],
+        occ_corr=v["V5_occ_corr"],
+    )
 
 
 if __name__ == "__main__":
